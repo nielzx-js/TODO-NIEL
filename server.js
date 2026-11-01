@@ -17,7 +17,9 @@ const PORT=process.env.PORT
 app.get('/',(req,res)=>{
     res.render('index')
 })
-
+app.get('/register',(req,res)=>{
+    res.render('register')
+})
 
 app.listen(PORT,()=>{
     console.log(`http://localhost:${PORT}`)
