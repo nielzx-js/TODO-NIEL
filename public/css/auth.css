@@ -1,0 +1,203 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    overflow: hidden;
+    background: #0d101f;
+    color: white;
+}
+
+.circulo {
+    position: fixed;
+    z-index: -1;
+    border-radius: 50%;
+    background: #14182a;
+}
+
+.circulo-1 {
+    top: -65px;
+    left: -170px;
+    width: 420px;
+    height: 420px;
+}
+
+.circulo-2 {
+    top: 75px;
+    right: 70px;
+    width: 440px;
+    height: 440px;
+}
+
+.circulo-3 {
+    bottom: 35px;
+    left: 160px;
+    width: 430px;
+    height: 430px;
+}
+
+.circulo-4 {
+    right: -30px;
+    bottom: -220px;
+    width: 430px;
+    height: 430px;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.card {
+    width: 583px;
+    height: 743px;
+    padding: 70px 90px 18px;
+    border-radius: 22px;
+    background: #1b2035;
+}
+
+.register-page .card {
+    padding-top: 38px;
+}
+
+h1 {
+    margin-bottom: 80px;
+    font-size: 60px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.register-page h1 {
+    margin-bottom: 30px;
+    font-size: 50px;
+}
+
+.campo {
+    margin-bottom: 35px;
+}
+
+.register-page .campo {
+    margin-bottom: 28px;
+}
+
+.campo label {
+    display: block;
+    margin-bottom: 17px;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.campo input {
+    width: 100%;
+    height: 52px;
+    padding: 0 18px;
+    border: 0;
+    border-radius: 20px;
+    outline: none;
+    background: white;
+    color: #1b2035;
+    font-size: 18px;
+}
+
+.campo input:focus {
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+}
+
+.esqueci {
+    display: block;
+    width: fit-content;
+    margin-top: -13px;
+    margin-bottom: 20px;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.esqueci:hover,
+.link-conta a:hover {
+    text-decoration: underline;
+}
+
+button {
+    display: block;
+    width: 280px;
+    height: 87px;
+    margin: 0 auto;
+    border: 0;
+    border-radius: 50px;
+    background: #ddd;
+    color: #1b2035;
+    font-size: 40px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.register-page button {
+    margin-top: 82px;
+    font-size: 36px;
+}
+
+button:hover {
+    transform: scale(1.02);
+    background: white;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+.link-conta {
+    margin-top: 25px;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.link-conta a {
+    color: white;
+    text-decoration: none;
+}
+
+@media (max-width: 650px) {
+    .card {
+        width: 90%;
+        padding-right: 35px;
+        padding-left: 35px;
+    }
+
+    h1 {
+        font-size: 45px;
+    }
+
+    .register-page h1 {
+        font-size: 40px;
+    }
+
+    .campo label {
+        font-size: 24px;
+    }
+
+    button {
+        width: 230px;
+        height: 70px;
+        font-size: 32px;
+    }
+
+    .register-page button {
+        margin-top: 60px;
+        font-size: 30px;
+    }
+
+    .link-conta,
+    .esqueci {
+        font-size: 16px;
+    }
+}

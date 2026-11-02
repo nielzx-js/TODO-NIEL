@@ -17,11 +17,14 @@ const PORT=process.env.PORT
 app.get('/',(req,res)=>{
     res.render('index')
 })
+app.get('/register',(req,res)=>{
+    res.render('register')
+})
+
 
 app.get('/dashboard',(req,res)=>{
     res.render('inicio')
 })
-
 
 
 
@@ -55,11 +58,27 @@ app.post('/login', async(req,res)=>{
     }
 })
 
+app.post('/register', async (req, res) => {
+    const { nome, email, senha, confirmarSenha } = req.body;
+
+    if (senha !== confirmarSenha) {
+        return res.send(`
+            <script>
+            alert("as senhas não coincidem")
+            window.location.href='register'
+            </script>
+            `)
+    }
+
+ 
+});
 
 
-app.get('/register',(req,res)=>{
-    res.render('register')
-})
+
+
+
+
+
 
 
 

@@ -184,6 +184,18 @@
         </p>
 
     </form>
+<script>
+    const form = document.querySelector('form');
 
+    form.addEventListener('submit', (event) => {
+        const senha = document.getElementById('senha').value;
+        const confirmarSenha = document.getElementById('confirmarSenha').value;
+
+        if (senha !== confirmarSenha) {
+            event.preventDefault();
+            alert('As senhas não correspondem!');
+        }
+    });
+</script>
 </body>
 </html>
