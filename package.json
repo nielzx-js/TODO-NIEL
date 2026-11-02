@@ -1,0 +1,25 @@
+{
+  "name": "sistema_todoist",
+  "version": "1.0.0",
+  "description": "![Status: em desenvolvimento](https://img.shields.io/badge/status-em%20desenvolvimento-orange)",
+  "main": "database.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+  "start": "node server.js",
+  "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nielzx-js/TODO-NIEL.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/nielzx-js/TODO-NIEL/issues"
+  },
+  "homepage": "https://github.com/nielzx-js/TODO-NIEL#readme"
+}

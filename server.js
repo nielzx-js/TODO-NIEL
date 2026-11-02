@@ -17,9 +17,53 @@ const PORT=process.env.PORT
 app.get('/',(req,res)=>{
     res.render('index')
 })
+
+app.get('/dashboard',(req,res)=>{
+    res.render('inicio')
+})
+
+
+
+
+
+
+//LOGIN E REGISTRO
+app.post('/login', async(req,res)=>{
+    const {email,senha} = req.body;
+    const query=`
+    SELECT * FROM usuarios
+    WHERE email = $1
+    AND 
+    senha = $2
+    `
+    const result = await pool.query(query,[email,senha])
+    if(result.rowCount>0){
+        res.send(`
+            <script>
+            alert("Login feito com sucesso!")
+            window.location.href='dashboard'
+            </script>
+            `)
+    }
+    else{
+        res.send(`
+            <script>
+            alert("Email ou senha incorreto.")
+            window.location.href='/'
+            </script>
+        `) 
+    }
+})
+
+
+
 app.get('/register',(req,res)=>{
     res.render('register')
 })
+
+
+
+
 
 app.listen(PORT,()=>{
     console.log(`http://localhost:${PORT}`)
