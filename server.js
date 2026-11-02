@@ -92,12 +92,7 @@ app.post('/register', async (req, res) => {
         `
         const result2= await pool.query(query2,[nome,email,senha])
         if(result2.rowCount>0){
-            res.send(`
-            <script>
-            alert("Cadastro feito com sucesso.")
-            window.location.href='dashboard'
-            <script>
-            `)
+            return res.redirect('/dashboard')
         }else{
             res.send(`
              <script>

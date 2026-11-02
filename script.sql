@@ -5,3 +5,4 @@ create table usuarios(
   senha varchar(100)
   
 )
+
