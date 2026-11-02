@@ -70,7 +70,44 @@ app.post('/register', async (req, res) => {
             `)
     }
 
- 
+    const query1=`
+    SELECT * FROM usuarios 
+    WHERE email=$1
+    AND
+    senha = $2
+    `
+    const result1= await pool.query(query1,[email,senha])
+    if(result1.rowCount>0){
+        return res.send(`
+            <script>
+            alert("Já existe uma conta cadastrada com esse email")
+            window.location.href='register'
+            </script>
+            `)
+    }
+    else{
+        const query2=`
+        INSERT INTO usuarios(nome,email,senha)
+        VALUES($1,$2,$3)
+        `
+        const result2= await pool.query(query2,[nome,email,senha])
+        if(result2.rowCount>0){
+            res.send(`
+            <script>
+            alert("Cadastro feito com sucesso.")
+            window.location.href='dashboard'
+            <script>
+            `)
+        }else{
+            res.send(`
+             <script>
+            alert("Erro ao realizar cadastro.")
+            window.location.href='dashboard'
+                <script>
+            `)
+        }
+
+    }
 });
 
 
