@@ -97,7 +97,14 @@ app.post('/register', async (req, res) => {
         VALUES($1,$2,$3)
         `
         const result2= await pool.query(query2,[nome,email,senha])
+        req.session.usuario = {
+        id: usuario.rows[0].id,
+        nome: usuario.rows[0].nome,
+        email: usuario.rows[0].email
+}
+
         if(result2.rowCount>0){
+
             return res.redirect('/dashboard')
         }else{
             res.send(`
@@ -113,9 +120,17 @@ app.post('/register', async (req, res) => {
 // fim de registro e login
 //INICIO DE DASHBOARD (INICIO.EJS)
 
-app.get('/dashboard',(req,res)=>{
-    const id = req.params.id
-    res.render('inicio')
+app.get('/dashboard',async (req,res)=>{
+
+        if (!req.session.usuario) {
+        return res.redirect('/')
+    }
+
+   const id = req.session.usuario.id
+    const query= 'SELECT * FROM tarefas WHERE usuario_id = $1'
+    const result = await pool.query(query,[id])
+
+    res.render('inicio',{tarefas:result.rows})
 })
 
 
