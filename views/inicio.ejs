@@ -5,12 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <title>Dashboard</title>
+    <style>
+        .atraso{
+            color:red;
+        }
+        .pendente{
+            color:orange;
+        }
+        .concluida{
+            color:green;
+        }
+     .card {
+    border: 1px solid black;
+    width: 300px;
+    height: 200px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+    </style>
 </head>
 <body>
+    <div class="container">
     <% tarefas.forEach(tarefa=>{ %>
-        <p><%=tarefa.titulo%>   </p>
-    <%}) %>
-    <p>tarefas restantes:  <%= tarefas.length%></p>
-    
+    <div class="card">
+        <h2><%= tarefa.titulo%></h2>
+        <p><%= tarefa.descricao%></p>
+        <% if(tarefa.status==='concluidas'){%>
+            <p class="concluida"><%=tarefa.status%></p>
+        <%}%>
+          <% if(tarefa.status==='pendente'){%>
+            <p class="pendente"><%=tarefa.status%></p>
+        <%}%>
+          <% if(tarefa.status==='atrasado'){%>
+            <p class="atraso"><%=tarefa.status%></p>
+        <%}%>
+    </div>
+    <%})%>
+    </div>
+   
+
 </body>
 </html>
