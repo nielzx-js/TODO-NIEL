@@ -8,12 +8,14 @@
 
 ## Sobre o projeto
 
-TodoNiel é um gerenciador de tarefas inspirado no Todoist, com foco em datas de entrega e calendário. A proposta é ajudar a identificar tarefas atrasadas, próximas do prazo ou no prazo. O design das telas está disponível como protótipo; os recursos do aplicativo ainda estão planejados.
+TodoNiel é um gerenciador de tarefas inspirado no Todoist, com foco em datas de entrega e calendário. A proposta é ajudar a identificar tarefas atrasadas, próximas do prazo ou no prazo. O código já permite login com sessão e exibe uma lista básica das tarefas do usuário; os demais recursos ainda estão planejados.
 
 ## Status do desenvolvimento
 
 - [x] Design gráfico das telas (protótipo)
-- [ ] Login e registro
+- [x] Login simplificado com sessão
+- [ ] Registro funcional
+- [x] Listagem básica das tarefas do usuário no painel
 - [ ] Cadastro de tarefas
 - [ ] Tarefas no calendário
 - [ ] Status de prazo: atrasado, perto do prazo e no prazo
@@ -21,11 +23,11 @@ TodoNiel é um gerenciador de tarefas inspirado no Todoist, com foco em datas de
 - [ ] Grupos: criar, entrar por código, calendário do grupo e membros
 - [ ] E-mails de lembrete de 4 a 1 dia antes do prazo
 - [ ] Feedback com estrelas
-- [ ] Segurança: bcrypt e sessões
+- [ ] Hash de senhas com bcrypt
 
 ## Funcionalidades
 
-**Implementadas:** o protótipo gráfico das telas está disponível em `docs/desigin/jpgs/`. Não foi encontrado código de funcionalidades do aplicativo neste diretório.
+**Implementadas:** protótipo gráfico das telas em `docs/desigin/jpgs/`; login simplificado com sessão; painel com listagem básica das tarefas do usuário.
 
 **Planejadas:** cadastro e acompanhamento de tarefas com datas, calendário e status de prazo; grupos em que cada membro marca a própria conclusão; lembretes por e-mail; feedback com estrelas; e redefinição de senha por código numérico.
 
