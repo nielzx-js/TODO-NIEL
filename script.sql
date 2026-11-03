@@ -12,3 +12,7 @@ CREATE TABLE tarefas (
     descricao VARCHAR(400),
     usuario_id INTEGER REFERENCES usuarios(id) ON DELETE CASCADE
 );
+
+ALTER TABLE tarefas
+ADD COLUMN cargo VARCHAR(10) DEFAULT 'user'
+CHECK (cargo IN ('admin', 'user'));
