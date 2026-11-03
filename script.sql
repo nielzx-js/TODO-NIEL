@@ -6,3 +6,9 @@ create table usuarios(
   
 )
 
+CREATE TABLE tarefas (
+    id SERIAL PRIMARY KEY,
+    titulo VARCHAR(200),
+    descricao VARCHAR(400),
+    usuario_id INTEGER REFERENCES usuarios(id) ON DELETE CASCADE
+);
