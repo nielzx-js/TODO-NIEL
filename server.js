@@ -13,17 +13,17 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 require('dotenv').config()
 const PORT=process.env.PORT
+app.use(session({
+    secret: process.env.SESSION_SECRET || randomBytes(32).toString('hex'),
+    resave: false,
+    saveUninitialized: false
+}))
 
 app.get('/',(req,res)=>{
     res.render('index')
 })
 app.get('/register',(req,res)=>{
     res.render('register')
-})
-
-
-app.get('/dashboard',(req,res)=>{
-    res.render('inicio')
 })
 
 
@@ -41,6 +41,12 @@ app.post('/login', async(req,res)=>{
     `
     const result = await pool.query(query,[email,senha])
     if(result.rowCount>0){
+        const usuario = result.rows[0]
+        req.session.usuario = {
+            id: usuario.id,
+            nome: usuario.nome,
+            email: usuario.email
+        }
         res.send(`
             <script>
             alert("Login feito com sucesso!")
@@ -104,6 +110,16 @@ app.post('/register', async (req, res) => {
 
     }
 });
+// fim de registro e login
+//INICIO DE DASHBOARD (INICIO.EJS)
+
+app.get('/dashboard',(req,res)=>{
+    const id = req.params.id
+    res.render('inicio')
+})
+
+
+
 
 
 
