@@ -32,4 +32,4 @@ DROP COLUMN cargo;
 
 ALTER TABLE usuarios
 ADD COLUMN cargo VARCHAR(10) DEFAULT 'user'
-CHECK (cargo IN ('admin', 'user'));
+CHECK (cargo IN ('admin', 'user')); 
