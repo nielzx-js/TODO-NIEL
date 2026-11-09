@@ -140,7 +140,9 @@ app.get('/inicio',async (req,res)=>{
 })
 
 
-
+app.get('/cadastrar',(req,res)=>{
+    res.render('cadastrar')
+})
 
 
 
