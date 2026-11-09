@@ -36,13 +36,18 @@ app.post('/login', async(req,res)=>{
     const query=`
     SELECT * FROM usuarios
     WHERE email = $1
-    AND 
-    senha = $2
     `
-    const result = await pool.query(query,[email,senha])
+    const result = await pool.query(query,[email])
+
     if(result.rowCount>0){
-        const usuario = result.rows[0]
-        req.session.usuario = {
+      const usuario = result.rows[0];
+
+        const senhaCerta = await bcrypt.compare(
+            senha,
+            usuario.senha
+        );
+        if(senhaCerta){
+              req.session.usuario = {
             id: usuario.id,
             nome: usuario.nome,
             email: usuario.email
@@ -54,6 +59,7 @@ app.post('/login', async(req,res)=>{
             </script>
             `)
     }
+        }
     else{
         res.send(`
             <script>
