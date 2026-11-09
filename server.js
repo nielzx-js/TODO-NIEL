@@ -92,19 +92,21 @@ app.post('/register', async (req, res) => {
             `)
     }
     else{
+        const senhaHash=await bcrypt.hash(senha,10)
         const query2=`
         INSERT INTO usuarios(nome,email,senha)
         VALUES($1,$2,$3)
+        RETURNING *
         `
-        const result2= await pool.query(query2,[nome,email,senha])
-        req.session.usuario = {
-        id: usuario.rows[0].id,
-        nome: usuario.rows[0].nome,
-        email: usuario.rows[0].email
-}
-
+        const result2= await pool.query(query2,[nome,email,senhaHash])
+      
         if(result2.rowCount>0){
-
+            const usuario = result2.rows[0]
+             req.session.usuario = {
+             id: usuario.id,
+             nome: usuario.nome,
+             email: usuario.email
+        }
             return res.redirect('/dashboard')
         }else{
             res.send(`
