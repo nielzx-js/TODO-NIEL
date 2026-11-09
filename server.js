@@ -144,6 +144,22 @@ app.get('/cadastrar',(req,res)=>{
     res.render('cadastrar')
 })
 
+app.post('/cadastrar', async(req,res)=>{
+    const {titulo,descricao} = req.body
+    const query= `
+    INSERT INTO tarefas(titulo,descricao)
+    VALUES($1,$2)
+    `
+    const result= await pool.query(query,[titulo,descricao])
+    if(result.rowCount>0){
+        res.send(`
+            <script>
+             alert("tarefa cadastrada!")
+             window.location.href='/cadastrar'
+            </script>
+            `)
+    }
+})
 
 
 
