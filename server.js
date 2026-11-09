@@ -85,10 +85,8 @@ app.post('/register', async (req, res) => {
     const query1=`
     SELECT * FROM usuarios 
     WHERE email=$1
-    AND
-    senha = $2
     `
-    const result1= await pool.query(query1,[email,senha])
+    const result1= await pool.query(query1,[email])
     if(result1.rowCount>0){
         return res.send(`
             <script>
