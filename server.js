@@ -55,7 +55,7 @@ app.post('/login', async(req,res)=>{
         res.send(`
             <script>
             alert("Login feito com sucesso!")
-            window.location.href='dashboard'
+            window.location.href='inicio'
             </script>
             `)
     }
@@ -111,12 +111,12 @@ app.post('/register', async (req, res) => {
              nome: usuario.nome,
              email: usuario.email
         }
-            return res.redirect('/dashboard')
+            return res.redirect('/inicio')
         }else{
             res.send(`
              <script>
             alert("Erro ao realizar cadastro.")
-            window.location.href='dashboard'
+            window.location.href='inicio'
                 <script>
             `)
         }
@@ -124,9 +124,9 @@ app.post('/register', async (req, res) => {
     }
 });
 // fim de registro e login
-//INICIO DE DASHBOARD (INICIO.EJS)
+//INICIO DE inicio (INICIO.EJS)
 
-app.get('/dashboard',async (req,res)=>{
+app.get('/inicio',async (req,res)=>{
 
         if (!req.session.usuario) {
         return res.redirect('/')
