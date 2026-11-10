@@ -145,12 +145,16 @@ app.get('/cadastrar',(req,res)=>{
 })
 
 app.post('/cadastrar', async(req,res)=>{
+        if (!req.session.usuario) {
+        return res.redirect('/')
+    }
     const {titulo,descricao} = req.body
+    const id = req.session.usuario.id
     const query= `
-    INSERT INTO tarefas(titulo,descricao)
-    VALUES($1,$2)
+    INSERT INTO tarefas(titulo,descricao,usuario_id)
+    VALUES($1,$2,$3)
     `
-    const result= await pool.query(query,[titulo,descricao])
+    const result= await pool.query(query,[titulo,descricao,id])
     if(result.rowCount>0){
         res.send(`
             <script>
