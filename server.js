@@ -173,10 +173,36 @@ app.get('/tarefas',async (req,res)=>{
     res.render('tarefas',{tarefas:result.rows})
   
 })
+app.get('/edit/:id',async (req,res)=>{
+    const id = req.params.id
+    const query='SELECT * FROM tarefas WHERE id = $1 AND usuario_id = $2 '
+    const result = await pool.query(query,[id, req.session.usuario.id]);
+      if (result.rowCount === 0) {
+        return res.redirect('/tarefas');
+    }
+     res.render('editar', { tarefa: result.rows[0] });
+})
+
+
 
 //EDIÇÃO E EXCLUSÃO DE TAREFAS
 app.post("/editar/:id", async(req,res)=>{
-
+    const {titulo,descricao} = req.body
+    const id=req.params.id
+    const query= `
+    UPDATE tarefas
+    SET titulo = $1, descricao = $2
+    WHERE id = $3 AND usuario_id = $4
+    `
+    const result = await pool.query(query,[titulo,descricao,id,req.session.usuario.id])
+    if(result.rowCount>0){
+        res.send(`
+            <script>
+            alert("Editado!")
+            window.location.href='/tarefas'
+            </script>
+            `)
+    }
 })
 app.post('/excluir/:id',async(req,res)=>{
     const id = req.params.id

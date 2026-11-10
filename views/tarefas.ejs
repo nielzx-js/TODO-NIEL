@@ -59,7 +59,9 @@
       <form method="POST" action="excluir/<%=tarefa.id%>">
         <button type="submit">Excluir</button>
       </form>
-      <button>Editar</button>
+        <a href="/edit/<%= tarefa.id %>">
+        <button type="button">Editar</button>
+        </a>
     </div>
     <%})%>
     </div>
