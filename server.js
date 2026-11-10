@@ -170,12 +170,29 @@ app.get('/tarefas',async (req,res)=>{
     const query= 'SELECT * FROM tarefas WHERE usuario_id = $1'
     const result = await pool.query(query,[id])
 
-    res.render('inicio',{tarefas:result.rows})
-    res.render('tarefas')
+    res.render('tarefas',{tarefas:result.rows})
+  
 })
 
+//EDIÇÃO E EXCLUSÃO DE TAREFAS
+app.post("/editar/:id", async(req,res)=>{
 
-
+})
+app.post('/excluir/:id',async(req,res)=>{
+    const id = req.params.id
+    const query=`
+    DELETE FROM tarefas WHERE id=$1
+    `
+    const result = await pool.query(query,[id])
+    if(result.rowCount>0){
+        res.send(`
+            <script>
+            alert("Deletado com sucesso!")
+            window.location.href='/tarefas'
+            </script>
+            `)
+    }
+})
 
 
 
