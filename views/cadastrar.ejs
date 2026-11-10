@@ -1,37 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Tarefa</title>
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-        .container{
-            display: flex;
-            justify-content: center; 
-            align-items: center;    
-            height: 100vh;  
-        }
-    </style>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
- <body>
-    <div class="container">
-        <div>
-            <h1>Cadastrar Tarefa</h1>
-            <form action="/cadastrar" method="POST">
-                <label for="titulo">Título:</label>
-                <input type="text" id="titulo" name="titulo" required>
-                <br>
-                <label for="descricao">Descrição:</label>
-                <textarea id="descricao" name="descricao" required></textarea>
-                <br>
-                <button type="submit">Cadastrar</button>
-            </form>
-        </div>
+    <div class="page-shell">
+        <%- include('partials/menu.ejs', { activeRoute: '/cadastrar' }) %>
+
+        <main class="main-content">
+            <div class="content-panel">
+                <form class="task-form" action="/cadastrar" method="POST">
+                    <h1>Adicionar uma nova tarefa</h1>
+
+                    <div class="form-field">
+                        <label for="titulo">Título</label>
+                        <input type="text" id="titulo" name="titulo" placeholder="Digite o título da tarefa" required>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="descricao">Descrição</label>
+                        <textarea id="descricao" name="descricao" placeholder="Descreva a tarefa" required></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    </div>
+                </form>
+            </div>
+        </main>
     </div>
-
-    <%- include('partials/menu.ejs') %>
-
 </body>
 </html>

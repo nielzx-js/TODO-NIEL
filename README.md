@@ -17,6 +17,8 @@ TodoNiel é um gerenciador de tarefas inspirado no Todoist, com foco em organiza
 - [x] Registro funcional com validação de senha
 - [x] Exibição das tarefas do usuário em cartões com título, descrição e status
 - [x] Cadastro de tarefas
+- [x] Visualização e edição de tarefas com layout responsivo
+- [x] Estilização visual seguindo a paleta do projeto
 - [ ] Tarefas no calendário
 - [ ] Status de prazo: atrasado, perto do prazo e no prazo
 - [ ] Redefinição de senha com código numérico
@@ -27,7 +29,7 @@ TodoNiel é um gerenciador de tarefas inspirado no Todoist, com foco em organiza
 
 ## Funcionalidades
 
-**Implementadas:** protótipo gráfico das telas em `docs/desigin/jpgs/`; autenticação com sessão; registro de usuários com confirmação de senha; hash de senhas com `bcrypt`; listagem de tarefas do usuário em cartões; cadastro de tarefas com título e descrição; indicação visual de status (`pendente`, `concluidas` e `atrasado`).
+**Implementadas:** protótipo gráfico das telas em `docs/desigin/jpgs/`; autenticação com sessão; registro de usuários com confirmação de senha; hash de senhas com `bcrypt`; listagem de tarefas do usuário em cartões; cadastro de tarefas com título e descrição; edição e exclusão de tarefas; visual responsivo da aplicação; e estilos visuais alinhados à paleta definida do projeto (`#0F1220`, `#1A1F33`, `#6C5CE7`, `#00B8D9`, `#2ECC71`, `#F5A623`, `#E5484D`).
 
 **Planejadas:** tarefas com calendário e datas de entrega, status de prazo por proximidade, grupos com código e calendário compartilhado, redefinição de senha com código numérico, lembretes por e-mail e feedback com estrelas.
 

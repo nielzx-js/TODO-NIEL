@@ -1,46 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edição</title>
-        <link rel="stylesheet" href="css/style.css">
-        <style>
-
-            .container {
-             margin-left: 277px;
-             width: calc(100% - 277px);
-             box-sizing: border-box;
-
-             display: grid;
-             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-             gap: 20px;
-
-             padding: 30px;
-             justify-items: center;
-}
-        </style>
+    <title>Editar tarefa</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-     <div class="container">
-        <div>
-            <h1>Editar Tarefa</h1>
-            <form action="/editar/<%= tarefa.id %>" method="POST">
-               
-                <label for="id">ID:</label>
-                <input type="text" value="<%=tarefa.id%>" readonly>
-                <br>
-                <label for="titulo">Título:</label>
-                <input type="text" id="titulo" name="titulo" required value="<%=tarefa.titulo%>">
-                <br>
-                <label for="descricao">Descrição:</label>
-                <textarea id="descricao" name="descricao" required><%=tarefa.descricao%></textarea>
-                <br>
-                <button type="submit">Salvar</button>
-               
-            </form>
-        </div>
+    <div class="page-shell">
+        <%- include('partials/menu.ejs', { activeRoute: '/tarefas' }) %>
+
+        <main class="main-content">
+            <div class="content-panel">
+                <form class="task-form" action="/editar/<%= tarefa.id %>" method="POST">
+                    <h1>Editar tarefa</h1>
+
+                    <div class="form-field">
+                        <label for="titulo">Título</label>
+                        <input type="text" id="titulo" name="titulo" value="<%= tarefa.titulo %>" required>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="descricao">Descrição</label>
+                        <textarea id="descricao" name="descricao" required><%= tarefa.descricao %></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </main>
     </div>
-    <%-include('partials/menu.ejs')%>
 </body>
 </html>
