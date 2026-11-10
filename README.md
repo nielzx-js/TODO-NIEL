@@ -4,32 +4,32 @@
 
 > **🚧 Projeto em desenvolvimento**
 >
-> Este repositório contém o protótipo do design e o código ainda está em construção. Tudo o que estiver marcado como **planejado** ainda não está pronto. A autenticação está simplificada nesta fase, sem JWT; o uso de hash de senha via bcrypt está previsto. Não use dados reais.
+> Este repositório contém o protótipo do design e o código ainda está em construção. Tudo o que estiver marcado como **planejado** ainda não está pronto. A autenticação atual já usa sessão e hash de senha com `bcrypt`. Não use dados reais.
 
 ## Sobre o projeto
 
-TodoNiel é um gerenciador de tarefas inspirado no Todoist, com foco em datas de entrega e calendário. A proposta é ajudar a identificar tarefas atrasadas, próximas do prazo ou no prazo. O código já permite login com sessão e exibe as tarefas do usuário em cartões com título, descrição e indicação visual do status; os demais recursos ainda estão planejados.
+TodoNiel é um gerenciador de tarefas inspirado no Todoist, com foco em organização pessoal, autenticação e acompanhamento de tarefas. A aplicação já conta com a base funcional de login, registro, hash de senha, sessão e gestão de tarefas em cartões; os recursos mais avançados do roadmap seguem planejados.
 
 ## Status do desenvolvimento
 
 - [x] Design gráfico das telas (protótipo)
-- [x] Login simplificado com sessão
-- [ ] Registro funcional
+- [x] Login com sessão
+- [x] Registro funcional com validação de senha
 - [x] Exibição das tarefas do usuário em cartões com título, descrição e status
-- [ ] Cadastro de tarefas
+- [x] Cadastro de tarefas
 - [ ] Tarefas no calendário
 - [ ] Status de prazo: atrasado, perto do prazo e no prazo
 - [ ] Redefinição de senha com código numérico
 - [ ] Grupos: criar, entrar por código, calendário do grupo e membros
 - [ ] E-mails de lembrete de 4 a 1 dia antes do prazo
 - [ ] Feedback com estrelas
-- [ ] Hash de senhas com bcrypt
+- [x] Hash de senhas com bcrypt
 
 ## Funcionalidades
 
-**Implementadas:** protótipo gráfico das telas em `docs/desigin/jpgs/`; login simplificado com sessão; painel com cartões das tarefas do usuário, exibindo título, descrição e indicação visual de status (concluída, pendente ou atrasada, conforme o status salvo).
+**Implementadas:** protótipo gráfico das telas em `docs/desigin/jpgs/`; autenticação com sessão; registro de usuários com confirmação de senha; hash de senhas com `bcrypt`; listagem de tarefas do usuário em cartões; cadastro de tarefas com título e descrição; indicação visual de status (`pendente`, `concluidas` e `atrasado`).
 
-**Planejadas:** cadastro e acompanhamento de tarefas com datas, calendário e status de prazo; grupos em que cada membro marca a própria conclusão; lembretes por e-mail; feedback com estrelas; e redefinição de senha por código numérico.
+**Planejadas:** tarefas com calendário e datas de entrega, status de prazo por proximidade, grupos com código e calendário compartilhado, redefinição de senha com código numérico, lembretes por e-mail e feedback com estrelas.
 
 ## Protótipo (design)
 
@@ -146,27 +146,42 @@ As imagens abaixo mostram o protótipo gráfico; elas não representam funcional
 
 ## Tecnologias
 
-Não foi localizado um `package.json` neste diretório. Portanto, ainda não há dependências ou stack de implementação que possam ser confirmadas.
+A base do projeto já está configurada com dependências reais no `package.json` e o código usa PostgreSQL, Express, EJS e autenticação por sessão.
 
-Previstas:
+Implementadas/confirmadas:
 
-- FullCalendar (planejado)
-- Nodemailer (planejado)
-- node-cron (planejado)
-- express-session (planejado)
-- bcrypt (planejado)
+- Express
+- EJS
+- PostgreSQL (`pg`)
+- express-session
+- bcrypt
+- dotenv
+- nodemailer
+- nodemon
+
+Planejadas:
+
+- FullCalendar
+- node-cron
+- lembretes automatizados por e-mail
 
 ## Como rodar localmente
 
-**TODO:** não é possível iniciar o aplicativo neste estado do repositório. Não foram encontrados `package.json`, `.env.example`, arquivos SQL nem scripts de inicialização.
+A aplicação já possui `package.json` com scripts de execução e a estrutura inicial de configuração, então os passos para rodar localmente são:
 
-Quando esses arquivos estiverem disponíveis, completar e validar os passos abaixo:
+1. Clonar o repositório.
+2. Instalar as dependências com `npm install`.
+3. Criar um arquivo `.env` com as variáveis necessárias, conforme o exemplo em `.env.exemple` (ajustar o nome do arquivo para `.env` se for necessário).
+4. Criar o banco PostgreSQL e executar o script `script.sql` para criar as tabelas `usuarios` e `tarefas`.
+5. Iniciar o servidor com `npm start` ou `npm run dev`.
 
-1. Clonar o repositório — **TODO:** informar a URL do repositório.
-2. Instalar as dependências — **TODO:** confirmar o gerenciador e o comando nos scripts do `package.json`.
-3. Criar o arquivo `.env` a partir de `.env.example` — **TODO:** adicionar o exemplo e documentar as variáveis necessárias.
-4. Criar o banco MySQL — **TODO:** adicionar os scripts SQL e informar o nome e as instruções do banco.
-5. Iniciar o servidor — **TODO:** definir e documentar o script de inicialização.
+Exemplo mínimo de `.env`:
+
+```env
+PORT=3000
+DATABASE_URL=postgres://usuario:senha@localhost:5432/nome_do_banco
+SESSION_SECRET=sua_chave_secreta
+```
 
 ## Estrutura de pastas
 
@@ -174,23 +189,40 @@ Estrutura resumida encontrada:
 
 ```text
 sistema_TODOIST/
-└── docs/
-    └── desigin/
-        ├── jpgs/
-        │   ├── ADD_TAREFA.jpg
-        │   ├── CALENDARIO.jpg
-        │   ├── CODIGO.jpg
-        │   ├── CODIGO_GRUPO.jpg
-        │   ├── CONFIG.jpg
-        │   ├── CRIAR_GRUPO.jpg
-        │   ├── FEEDBACK.jpg
-        │   ├── GRUPOS.jpg
-        │   ├── INICIO.jpg
-        │   ├── LOGIN.jpg
-        │   ├── REGISTRO.jpg
-        │   ├── SEUEMAIL.jpg
-        │   └── SEUFEEDBACK.jpg
-        └── todoist.pdf
+├── public/
+│   └── css/
+│       └── style.css
+├── views/
+│   ├── index.ejs
+│   ├── register.ejs
+│   ├── cadastrar.ejs
+│   ├── inicio.ejs
+│   └── partials/
+│       └── menu.ejs
+├── docs/
+│   └── desigin/
+│       ├── jpgs/
+│       │   ├── ADD_TAREFA.jpg
+│       │   ├── CALENDARIO.jpg
+│       │   ├── CODIGO.jpg
+│       │   ├── CODIGO_GRUPO.jpg
+│       │   ├── CONFIG.jpg
+│       │   ├── CRIAR_GRUPO.jpg
+│       │   ├── FEEDBACK.jpg
+│       │   ├── GRUPOS.jpg
+│       │   ├── INICIO.jpg
+│       │   ├── LOGIN.jpg
+│       │   ├── REGISTRO.jpg
+│       │   ├── SEUEMAIL.jpg
+│       │   └── SEUFEEDBACK.jpg
+│       └── todoist.pdf
+├── .env.exemple
+├── database.js
+├── package.json
+├── script.sql
+├── server.js
+├── README.md
+└── package-lock.json
 ```
 
 ## Próximos passos
