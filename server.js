@@ -52,12 +52,7 @@ app.post('/login', async(req,res)=>{
             nome: usuario.nome,
             email: usuario.email
         }
-        res.send(`
-            <script>
-            alert("Login feito com sucesso!")
-            window.location.href='inicio'
-            </script>
-            `)
+        res.redirect('inicio')
     }
         }
     else{
@@ -167,7 +162,17 @@ app.post('/cadastrar', async(req,res)=>{
 
 
 
+app.get('/tarefas',async (req,res)=>{
+       if (!req.session.usuario) {
+        return res.redirect('/')
+    }
+    const id = req.session.usuario.id
+    const query= 'SELECT * FROM tarefas WHERE usuario_id = $1'
+    const result = await pool.query(query,[id])
 
+    res.render('inicio',{tarefas:result.rows})
+    res.render('tarefas')
+})
 
 
 

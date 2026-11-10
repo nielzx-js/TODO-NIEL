@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarefas</title>
+    <link rel="stylesheet" href="css/style.css">
+      <style>
+        .atraso{
+            color:red;
+        }
+        .pendente{
+            color:orange;
+        }
+        .concluida{
+            color:green;
+        }
+     .card {
+    border: 1px solid black;
+    width: 300px;
+    height: 200px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+.container {
+    margin-left: 277px;
+    width: calc(100% - 277px);
+    box-sizing: border-box;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+
+    padding: 30px;
+    justify-items: center;
+}
+    </style>
+</head>
+<body>
+      <div class="container">
+    <% tarefas.forEach(tarefa=>{ %>
+    <div class="card">
+        <h2><%= tarefa.titulo%></h2>
+        <p><%= tarefa.descricao%></p>
+        <% if(tarefa.status==='concluidas'){%>
+            <p class="concluida"><%=tarefa.status%></p>
+        <%}%>
+          <% if(tarefa.status==='pendente'){%>
+            <p class="pendente"><%=tarefa.status%></p>
+        <%}%>
+          <% if(tarefa.status==='atrasado'){%>
+            <p class="atraso"><%=tarefa.status%></p>
+        <%}%>
+    </div>
+    <%})%>
+    </div>
+   <%-include('partials/menu.ejs') %>
+</body>
+</html>

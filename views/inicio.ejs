@@ -27,9 +27,16 @@
     text-align: center;
 }
 .container {
+    margin-left: 277px;
+    width: calc(100% - 277px);
+    box-sizing: border-box;
+
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 20px;
+
+    padding: 30px;
+    justify-items: center;
 }
     </style>
 </head>
