@@ -54,6 +54,14 @@ app.post('/login', async(req,res)=>{
         }
         res.redirect('inicio')
     }
+    else{
+           res.send(`
+            <script>
+            alert("Email ou senha incorreto.")
+            window.location.href='/'
+            </script>
+        `)  
+    }
         }
     else{
         res.send(`
