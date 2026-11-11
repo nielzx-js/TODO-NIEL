@@ -9,6 +9,14 @@
     <meta name="theme-color" content="#6366f1">
     <link rel="apple-touch-icon" href="/icons/icon-192.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <style>
+        
+    .atrasado { color: #ff5252; }
+    .hoje { color: #ffc107; }
+    .perto { color: #ff9800; }
+    .longe { color: #4caf50; }
+    </style>
 </head>
 <body>
     <div class="page-shell">
@@ -25,31 +33,54 @@
                         </div>
                     <% } %>
 
-                    <% tarefas.forEach(tarefa => { %>
-                        <article class="task-card">
-                            <div class="task-card-header">
-                                <h3><%= tarefa.titulo %></h3>
-                                <% const status = tarefa.status || 'pendente'; %>
-                                <span class="task-status <%= status %>"><%= status %></span>
-                            </div>
+            <% tarefas.forEach(tarefa => { %>
+            <article class="task-card">
+                <div class="task-card-header">
+                 <h3><%= tarefa.titulo %></h3>
+            <% const status = tarefa.status || 'pendente'; %>
+            <% if (status !== 'concluida' && tarefa.data_limite) { %>
+            <% 
+            const hoje = new Date();
+            hoje.setHours(0, 0, 0, 0);
 
-                            <p><%= tarefa.descricao %></p>
-                            <p><%= tarefa.data_limite%></p>
-                            <div class="task-card-actions">
-                                <form class="" method="POST" action="/concluir/<%=tarefa.id%>">
-                                <button class ="btn btn-primary">Concluído</button>
-                                </form>
-                                <a href="/edit/<%= tarefa.id %>" class="btn btn-secondary">Editar</a>
+            const prazo = new Date(tarefa.data_limite);
+            prazo.setHours(0, 0, 0, 0);
 
-                                <form method="POST" action="/excluir/<%= tarefa.id %>">
-                                    <button type="submit" class="btn btn-primary">Excluir</button>
-                                </form>
-                                 <form class="" method="POST" action="/desmarcar/<%=tarefa.id%>">
-                                <button class ="btn btn-primary">Desmarcar </button>
-                                </form>
-                            </div>
-                        </article>
-                    <% }) %>
+            const dias = Math.ceil((prazo - hoje) / 86400000);
+            %>
+
+            <% if (dias < 0) { %>
+                <span class="prazo atrasado">Atrasado</span>
+            <% } else if (dias === 0) { %>
+                <span class="prazo hoje">Para hoje</span>
+            <% } else if (dias <= 3) { %>
+                <span class="prazo perto">Perto do prazo</span>
+            <% } else { %>
+                <span class="prazo longe">Longe do prazo</span>
+            <% } %>
+        <% } %>
+
+                                    
+                                    <span class="task-status <%= status %>"><%= status %></span>
+                                </div>
+
+                                <p><%= tarefa.descricao %></p>
+                                <p><%= tarefa.data_limite%></p>
+                                <div class="task-card-actions">
+                                    <form class="" method="POST" action="/concluir/<%=tarefa.id%>">
+                                    <button class ="btn btn-primary">Concluído</button>
+                                    </form>
+                                    <a href="/edit/<%= tarefa.id %>" class="btn btn-secondary">Editar</a>
+
+                                    <form method="POST" action="/excluir/<%= tarefa.id %>">
+                                        <button type="submit" class="btn btn-primary">Excluir</button>
+                                    </form>
+                                    <form class="" method="POST" action="/desmarcar/<%=tarefa.id%>">
+                                    <button class ="btn btn-primary">Desmarcar </button>
+                                    </form>
+                                </div>
+                            </article>
+                        <% }) %>
                 </div>
             </div>
         </main>

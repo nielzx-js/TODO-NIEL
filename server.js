@@ -178,7 +178,19 @@ app.get('/tarefas',async (req,res)=>{
     }
     
     const id = req.session.usuario.id
-    const query= 'SELECT * FROM tarefas WHERE usuario_id = $1'
+    const query= `
+     SELECT *,
+            CASE
+                WHEN status = 'concluida' THEN 5
+                WHEN data_prazo < CURRENT_DATE THEN 1
+                WHEN data_prazo = CURRENT_DATE THEN 2
+                WHEN data_prazo <= CURRENT_DATE + 3 THEN 3
+                ELSE 4
+            END AS prioridade
+        FROM tarefas
+        WHERE usuario_id = $1
+        ORDER BY prioridade ASC, data_prazo ASC
+    `
     const result = await pool.query(query,[id])
 
     res.render('tarefas',{tarefas:result.rows})
