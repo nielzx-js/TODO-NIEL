@@ -232,6 +232,9 @@ app.post('/excluir/:id',async(req,res)=>{
 
 
 app.get('/calendario',(req,res)=>{
+    if(!req.session.usuario){
+        res.redirect('/')
+    }
     res.render("calendario")
 })
 

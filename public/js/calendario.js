@@ -56,7 +56,7 @@ tarefasDoDia.forEach(tarefa => {
 
     const item = document.createElement('div');
 
-    item.classList.add('tarefa-calendario');
+     item.classList.add('tarefa-calendario')
 
     item.textContent = tarefa.titulo;
 

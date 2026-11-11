@@ -1,159 +1,35 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/auth.css">
     <title>Login</title>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        body {
-            background: #0F1220;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        form {
-            background: #1A1F33;
-            border: 1px solid #2B3250;
-            border-radius: 18px;
-            width: 100%;
-            max-width: 400px;
-            padding: 40px;
-
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
-        }
-
-        .titulo {
-            text-align: center;
-            margin-bottom: 12px;
-        }
-
-        .titulo h1 {
-            color: #E8EAF6;
-            font-size: 27px;
-            font-weight: 600;
-        }
-
-        .titulo p {
-            color: #9AA3C7;
-            font-size: 13px;
-            margin-top: 6px;
-        }
-
-        label {
-            color: #E8EAF6;
-            font-size: 13px;
-            font-weight: 500;
-        }
-
-        input {
-            width: 100%;
-            padding: 13px 14px;
-            background: #0F1220;
-            border: 1px solid #2B3250;
-            border-radius: 9px;
-            color: #E8EAF6;
-            font-size: 14px;
-            outline: none;
-            transition: 0.3s;
-        }
-
-        input::placeholder {
-            color: #69718F;
-        }
-
-        input:focus {
-            border-color: #6C5CE7;
-            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.15);
-        }
-
-        button {
-            margin-top: 12px;
-            padding: 13px;
-            border: none;
-            border-radius: 9px;
-            background: #6C5CE7;
-            color: white;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        button:hover {
-            background: #5848D6;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 18px rgba(108, 92, 231, 0.3);
-        }
-
-        button:active {
-            transform: translateY(0);
-        }
-
-        .cadastro {
-            text-align: center;
-            color: #9AA3C7;
-            font-size: 12px;
-            margin-top: 8px;
-        }
-
-        .cadastro a {
-            color: #00B8D9;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .cadastro a:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 450px) {
-            form {
-                padding: 30px 24px;
-            }
-        }
-    </style>
 </head>
 
-<body>
-
-    <form method="POST" action="/login"> 
+<body class="auth-page">
+    <form class="auth-form" method="POST" action="/login">
         <div class="titulo">
             <h1>Bem-vindo!</h1>
             <p>Entre com suas credenciais para continuar.</p>
         </div>
 
         <label for="email">Email</label>
-        <input 
-            type="email" 
-            id="email" 
-            name="email" 
+        <input
+            type="email"
+            id="email"
+            name="email"
             placeholder="email@exemplo.com"
             required
             autofocus
         >
 
         <label for="senha">Senha</label>
-        <input 
-            type="password" 
-            id="senha" 
-            name="senha" 
+        <input
+            type="password"
+            id="senha"
+            name="senha"
             placeholder="Digite sua senha"
             required
             autofocus
@@ -165,6 +41,5 @@
             Não tem uma conta? <a href="/register">Cadastre-se</a>
         </p>
     </form>
-
 </body>
 </html>

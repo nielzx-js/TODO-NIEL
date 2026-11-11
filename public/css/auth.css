@@ -1,203 +1,109 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins', sans-serif;
+.auth-page {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
 }
 
-body {
-    min-height: 100vh;
-    overflow: hidden;
-    background: #0d101f;
-    color: white;
+.auth-form {
+  display: flex;
+  width: 100%;
+  max-width: 400px;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
 }
 
-.circulo {
-    position: fixed;
-    z-index: -1;
-    border-radius: 50%;
-    background: #14182a;
+.auth-form .titulo {
+  margin-bottom: var(--space-2);
+  text-align: left;
 }
 
-.circulo-1 {
-    top: -65px;
-    left: -170px;
-    width: 420px;
-    height: 420px;
+.auth-form .titulo h1 {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 22px;
+  font-weight: 700;
 }
 
-.circulo-2 {
-    top: 75px;
-    right: 70px;
-    width: 440px;
-    height: 440px;
+.auth-form .titulo p {
+  margin: var(--space-1-5) 0 0;
+  color: var(--color-muted);
+  font-size: 13px;
 }
 
-.circulo-3 {
-    bottom: 35px;
-    left: 160px;
-    width: 430px;
-    height: 430px;
+.auth-form label {
+  color: var(--color-muted);
+  font-size: 12px;
+  font-weight: 500;
 }
 
-.circulo-4 {
-    right: -30px;
-    bottom: -220px;
-    width: 430px;
-    height: 430px;
+.auth-form input {
+  width: 100%;
+  padding: var(--space-2) var(--space-2-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-control);
+  outline: none;
+  background: var(--color-input);
+  color: var(--color-text);
+  font-size: 13px;
 }
 
-.container {
-    display: flex;
-    min-height: 100vh;
-    align-items: center;
-    justify-content: center;
+.auth-form input::placeholder {
+  color: var(--color-subtle);
 }
 
-.card {
-    width: 583px;
-    height: 743px;
-    padding: 70px 90px 18px;
-    border-radius: 22px;
-    background: #1b2035;
+.auth-form input:focus {
+  border-color: var(--color-accent);
 }
 
-.register-page .card {
-    padding-top: 38px;
+.auth-form button {
+  min-height: 36px;
+  margin-top: var(--space-1-5);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-control);
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
 }
 
-h1 {
-    margin-bottom: 80px;
-    font-size: 60px;
-    font-weight: 700;
-    text-align: center;
+.auth-form button:hover {
+  border-color: var(--color-accent-hover);
+  background: var(--color-accent-hover);
 }
 
-.register-page h1 {
-    margin-bottom: 30px;
-    font-size: 50px;
+.auth-form .cadastro,
+.auth-form .login {
+  margin: var(--space-1) 0 0;
+  color: var(--color-muted);
+  font-size: 12px;
+  text-align: center;
 }
 
-.campo {
-    margin-bottom: 35px;
+.auth-form a {
+  color: var(--color-accent);
+  font-weight: 500;
 }
 
-.register-page .campo {
-    margin-bottom: 28px;
+.auth-form a:hover {
+  color: var(--color-accent-hover);
+  text-decoration: underline;
 }
 
-.campo label {
-    display: block;
-    margin-bottom: 17px;
-    font-size: 30px;
-    font-weight: 600;
-}
+@media (max-width: 450px) {
+  .auth-page {
+    padding: var(--space-4);
+  }
 
-.campo input {
-    width: 100%;
-    height: 52px;
-    padding: 0 18px;
-    border: 0;
-    border-radius: 20px;
-    outline: none;
-    background: white;
-    color: #1b2035;
-    font-size: 18px;
-}
-
-.campo input:focus {
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
-}
-
-.esqueci {
-    display: block;
-    width: fit-content;
-    margin-top: -13px;
-    margin-bottom: 20px;
-    color: white;
-    font-size: 20px;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.esqueci:hover,
-.link-conta a:hover {
-    text-decoration: underline;
-}
-
-button {
-    display: block;
-    width: 280px;
-    height: 87px;
-    margin: 0 auto;
-    border: 0;
-    border-radius: 50px;
-    background: #ddd;
-    color: #1b2035;
-    font-size: 40px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.register-page button {
-    margin-top: 82px;
-    font-size: 36px;
-}
-
-button:hover {
-    transform: scale(1.02);
-    background: white;
-}
-
-button:active {
-    transform: scale(0.98);
-}
-
-.link-conta {
-    margin-top: 25px;
-    font-size: 20px;
-    font-weight: 600;
-    text-align: center;
-}
-
-.link-conta a {
-    color: white;
-    text-decoration: none;
-}
-
-@media (max-width: 650px) {
-    .card {
-        width: 90%;
-        padding-right: 35px;
-        padding-left: 35px;
-    }
-
-    h1 {
-        font-size: 45px;
-    }
-
-    .register-page h1 {
-        font-size: 40px;
-    }
-
-    .campo label {
-        font-size: 24px;
-    }
-
-    button {
-        width: 230px;
-        height: 70px;
-        font-size: 32px;
-    }
-
-    .register-page button {
-        margin-top: 60px;
-        font-size: 30px;
-    }
-
-    .link-conta,
-    .esqueci {
-        font-size: 16px;
-    }
+  .auth-form {
+    padding: var(--space-5) var(--space-4);
+  }
 }
