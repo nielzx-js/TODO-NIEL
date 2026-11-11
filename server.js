@@ -432,7 +432,29 @@ app.post("/editarFeed/:id",async(req,res)=>{
             `)
     }
 })
-
+app.post('/deletar/:id',async(req,res)=>{
+    const id = req.params.id;
+    const query=`
+    DELETE FROM feedbacks 
+    WHERE id=$1
+    `
+    const result=await pool.query(query,[id])
+    if(result.rowCount>0){
+        const userId=req.session.usuario.id
+        const query2=`
+        UPDATE usuarios
+        SET feedback=FALSE
+        where id=$1
+        `
+        await pool.query(query2,[userId])
+        res.send(`
+            <script>
+            alert("Feedback deletado!")
+            window.location.href='/feedback'
+            </script>
+            `)
+    }
+})
 
 
 app.post('/logout', (req, res) => {

@@ -18,6 +18,22 @@
             background: var(--color-surface);
         }
 
+        .feedback-form-toolbar {
+            display: flex;
+            max-width: 620px;
+            justify-content: flex-end;
+            margin-top: var(--space-5);
+        }
+
+        .feedback-form-toolbar form {
+            margin: 0;
+        }
+
+        .feedback-form-toolbar .btn-danger {
+            border-color: var(--color-danger);
+            color: var(--color-danger);
+        }
+
         .feedback-form .form-group {
             display: flex;
             flex-direction: column;
@@ -90,7 +106,13 @@
 
             <h1 class="section-title">Visualizar feedback</h1>
             <p>Compartilhe sua opinião e ajude a melhorar a plataforma.</p>
-
+            <div class="feedback-form-toolbar">
+                <form method="POST" action="/deletar/<%=feedback.id%>">
+                    <button type="submit" class="btn btn-danger">
+                        Deletar
+                    </button>
+                </form>
+            </div>
             <form action="/editarFeed/<%=feedback.id%>" method="POST" class="feedback-form">
              
                      <div class="form-group">
@@ -123,19 +145,21 @@
                     <button type="submit" class="btn btn-primary">
                         Salvar feedback
                     </button>
+                   
+                    
                 </div>
 
 
                
             </form>
-
+             
         </div>
     </main>
 
   
 </div>
     
-
+   
     <%- include('partials/footer.ejs') %>
 </body>
 </html>
