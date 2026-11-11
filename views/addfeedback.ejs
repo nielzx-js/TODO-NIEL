@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedbacks</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .feedback-form {
+            display: flex;
+            max-width: 620px;
+            flex-direction: column;
+            gap: var(--space-4);
+            margin-top: var(--space-5);
+            padding: var(--space-6);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-card);
+            background: var(--color-surface);
+        }
+
+        .feedback-form .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+        }
+
+        .feedback-form label {
+            color: var(--color-muted);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .feedback-form input,
+        .feedback-form textarea {
+            width: 100%;
+            padding: var(--space-2) var(--space-2-5);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-control);
+            outline: none;
+            background: var(--color-input);
+            color: var(--color-text);
+            font-size: 13px;
+        }
+
+        .feedback-form input::placeholder,
+        .feedback-form textarea::placeholder {
+            color: var(--color-subtle);
+        }
+
+        .feedback-form input:focus,
+        .feedback-form textarea:focus {
+            border-color: var(--color-accent);
+        }
+
+        .feedback-form textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        .feedback-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: var(--space-2);
+        }
+
+        @media (max-width: 560px) {
+            .feedback-form {
+                padding: var(--space-4);
+            }
+
+            .feedback-actions {
+                justify-content: stretch;
+            }
+
+            .feedback-actions .btn {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="page-shell">
+    <%- include('partials/menu.ejs', { activeRoute: '/feedbacks' }) %>
+
+    <main class="main-content">
+        <div class="content-panel">
+
+            <h1 class="section-title">Enviar feedback</h1>
+            <p>Compartilhe sua opinião e ajude a melhorar a plataforma.</p>
+
+            <form action="/addfeedback" method="POST" class="feedback-form">
+
+                <div class="form-group">
+                    <label for="titulo">Título</label>
+                    <input
+                        type="text"
+                        id="titulo"
+                        name="titulo"
+                        placeholder="Ex: Sugestão de melhoria"
+                        maxlength="200"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="descricao">Descrição</label>
+                    <textarea
+                        id="descricao"
+                        name="descricao"
+                        placeholder="Conte sua experiência ou sugestão..."
+                        maxlength="1000"
+                        rows="6"
+                        required
+                    ></textarea>
+                </div>
+
+                <div class="feedback-actions">
+                    <a href="/feedback" class="btn btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-primary">
+                        Enviar feedback
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </main>
+
+  
+</div>
+    
+
+    <%- include('partials/footer.ejs') %>
+</body>
+</html>

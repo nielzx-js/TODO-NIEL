@@ -7,44 +7,62 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <div class="page-shell">
-        <%- include('partials/menu.ejs', { activeRoute: '/feedbacks' }) %>
 
-        <main class="main-content">
-            <div class="content-panel">
-                <div class="task-card-header" style="margin-bottom: 20px; align-items: center;">
-                    <h1 class="section-title" style="margin: 0;">Feedbacks</h1>
-                      <% if (usuario.feedback==='FALSE') { %>
-                    <div class="task-card empty-card">
-                          <a href="/addfeedback" class="btn btn-primary">Adicionar feedback</a>
-                    </div>
-                <% } else { %>
-                        <div class="task-card empty-card">
-                        <a href="/addfeedback" class="btn btn-primary">Ver seu feedback</a>
-                        </div>
-                    <%} %>
-                </div>
+<div class="page-shell">
+    <%- include('partials/menu.ejs', { activeRoute: '/feedbacks' }) %>
 
-                <% if (usuario.feedback==='FALSE') { %>
-                    <div class="task-card empty-card">
-                        <p>Você ainda não deixou nenhum feedback.</p>
-                    </div>
+    <main class="main-content">
+        <div class="content-panel">
+
+            <div class="task-card-header">
+                <h1 class="section-title">Feedbacks</h1>
+
+                <% if (!usuario.feedback) { %>
+                    <a href="/addfeedback" class="btn btn-primary">
+                        + Adicionar feedback
+                    </a>
                 <% } else { %>
-                    <div class="task-grid">
-                        <% usuario.forEach(feedback => { %>
-                            <article class="task-card">
-                                <div class="task-card-header">
-                                    <h3><%= feedback.nome || 'Usuário' %></h3>
-                                    <span class="task-status concluida"><%= feedback.avaliacao || 0 %>★</span>
-                                </div>
-                                <p><%= feedback.mensagem || 'Sem comentário.' %></p>
-                            </article>
-                        <% }) %>
-                    </div>
+                   <a href="/verfeedback" class="btn btn-primary">
+                       Ver feedback 
+                   </a>
                 <% } %>
             </div>
-        </main>
-    </div>
+
+            <% if (feedbacks.length === 0) { %>
+
+                <div class="task-card empty-card">
+                    <p>Nenhum feedback foi enviado ainda.</p>
+                </div>
+
+            <% } else { %>
+
+                <div class="task-grid">
+                    <% feedbacks.forEach(feedback => { %>
+
+                        <article class="task-card">
+
+                            <div class="task-card-header">
+                                <h3><%= feedback.titulo %></h3>
+                                <span><%= feedback.nome %></span>
+                            </div>
+
+                            <p><%= feedback.descricao %></p>
+
+                            <small>
+                                <%= new Date(feedback.data_criacao).toLocaleDateString('pt-BR') %>
+                            </small>
+
+                        </article>
+
+                    <% }) %>
+                </div>
+
+            <% } %>
+
+        </div>
+    </main>
+</div>
+
 
     <%- include('partials/footer.ejs') %>
 </body>

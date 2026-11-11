@@ -341,17 +341,75 @@ app.get('/feedback',async(req,res)=>{
     else{
         
             const id = req.session.usuario.id;
-            const query = `
-            SELECT *
-            FROM usuarios
-            WHERE id = $1
-        `;
-        const result=await pool.query(query,[id])
-        if(result.rowCount>0){
-            res.render('feedbacks',{usuario:result.rows[0]})
-        }
+         const usuario = await pool.query(
+            'SELECT * FROM usuarios WHERE id = $1',
+            [id]
+        );
+
+        const feedbacks = await pool.query(`
+            SELECT 
+                feedbacks.*,
+                usuarios.nome
+            FROM feedbacks
+            INNER JOIN usuarios
+            ON feedbacks.usuario_id = usuarios.id
+            ORDER BY feedbacks.data_criacao DESC
+        `);
+
+           res.render('feedbacks', {
+            usuario: usuario.rows[0],
+            feedbacks: feedbacks.rows
+        });
     }
 })
+
+app.get('/addfeedback',(req,res)=>{
+       if (!req.session.usuario) {
+        return res.redirect('/');
+    }
+    res.render("addfeedback")
+})
+app.post('/addfeedback', async(req,res)=>{
+    
+   const { titulo, descricao } = req.body;
+    const id = req.session.usuario.id;
+
+    const query = `
+        INSERT INTO feedbacks (usuario_id, titulo, descricao, data_criacao)
+        VALUES ($1, $2, $3, CURRENT_TIMESTAMP)
+`;
+
+const result=await pool.query(query, [id, titulo, descricao]);
+if(result.rowCount>0){
+    const query2=`
+    UPDATE usuarios
+    SET feedback=TRUE
+    WHERE ID=$1
+    `
+    const result2=await pool.query(query2,[id])
+    res.send(`
+        <script>
+        alert("obrigado pelo seu feedback!")
+        window.location.href='/feedback'
+        </script>
+        `)
+}
+})
+app.get("/verfeedback",async(req,res)=>{
+    if(!req.session.usuario){
+        res.redirect('/')
+    }
+     const id=req.session.usuario.id
+    const query=`
+        SELECT * FROM feedbacks
+        WHERE usuario_id=$1
+    `
+   
+
+    res.render('verfeedback')
+})
+
+
 
 
 app.post('/logout', (req, res) => {
