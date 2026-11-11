@@ -30,7 +30,7 @@
                             </div>
 
                             <p><%= tarefa.descricao %></p>
-
+                            <p><%= tarefa.data_limite%></p>
                             <div class="task-card-actions">
                                 <a href="/edit/<%= tarefa.id %>" class="btn btn-primary">Editar</a>
                                 <form method="POST" action="/excluir/<%= tarefa.id %>">

@@ -151,13 +151,15 @@ app.post('/cadastrar', async(req,res)=>{
         if (!req.session.usuario) {
         return res.redirect('/')
     }
-    const {titulo,descricao} = req.body
+    const {titulo,descricao,data_limite} = req.body
     const id = req.session.usuario.id
+      const data = data_limite || null;
     const query= `
-    INSERT INTO tarefas(titulo,descricao,usuario_id)
-    VALUES($1,$2,$3)
+    INSERT INTO tarefas(titulo,descricao,usuario_id,data_limite)
+    VALUES($1,$2,$3,$4)
     `
-    const result= await pool.query(query,[titulo,descricao,id])
+  
+    const result= await pool.query(query,[titulo,descricao,id,data])
     if(result.rowCount>0){
         res.send(`
             <script>
