@@ -182,14 +182,14 @@ app.get('/tarefas',async (req,res)=>{
      SELECT *,
             CASE
                 WHEN status = 'concluida' THEN 5
-                WHEN data_prazo < CURRENT_DATE THEN 1
-                WHEN data_prazo = CURRENT_DATE THEN 2
-                WHEN data_prazo <= CURRENT_DATE + 3 THEN 3
+                WHEN data_limite < CURRENT_DATE THEN 1
+                WHEN data_limite = CURRENT_DATE THEN 2
+                WHEN data_limite <= CURRENT_DATE + 3 THEN 3
                 ELSE 4
             END AS prioridade
         FROM tarefas
         WHERE usuario_id = $1
-        ORDER BY prioridade ASC, data_prazo ASC
+        ORDER BY prioridade ASC, data_limite ASC
     `
     const result = await pool.query(query,[id])
 
@@ -325,6 +325,33 @@ app.get('/api/tarefas-calendario', async (req, res) => {
 
     res.json(result.rows);
 });
+
+
+//configuração e feedback
+app.get('/config',async(req,res)=>{
+    if(!req.session.usuario){
+        res.redirect('/')
+    }
+    res.render("config")
+})
+app.get('/feedback',async(req,res)=>{
+    if(!req.session.usuario){
+        res.redirect('/')
+    }
+    else{
+        
+            const id = req.session.usuario.id;
+            const query = `
+            SELECT *
+            FROM usuarios
+            WHERE id = $1
+        `;
+        const result=await pool.query(query,[id])
+        if(result.rowCount>0){
+            res.render('feedbacks',{usuario:result.rows[0]})
+        }
+    }
+})
 
 
 app.post('/logout', (req, res) => {
