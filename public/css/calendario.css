@@ -17,12 +17,13 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    min-width: 0;
 }
 
 .calendario {
     width: min(100%, 700px);
     background: #1A1F33;
-    padding: 25px;
+    padding: clamp(12px, 3vw, 25px);
     border-radius: 12px;
 }
 
@@ -46,23 +47,25 @@ body {
 .dias {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 8px;
+    gap: clamp(3px, 1vw, 8px);
 }
 
 .dias-semana span {
     text-align: center;
     color: #A8AFC5;
     padding: 10px 0;
+    font-size: clamp(0.65rem, 2.5vw, 1rem);
 }
 
 .dia {
-    min-height: 65px;
+    min-height: clamp(36px, 9vw, 65px);
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 8px;
     cursor: pointer;
     background: #2B3250;
+    font-size: clamp(0.75rem, 2.5vw, 1rem);
 }
 
 .dia:hover {
@@ -81,4 +84,29 @@ body {
 .dia.vazio {
     background: transparent;
     cursor: default;
+}
+
+@media (max-width: 560px) {
+    .calendario-conteudo {
+        align-items: flex-start;
+    }
+
+    .calendario {
+        border-radius: 10px;
+    }
+
+    .cabecalho {
+        gap: 8px;
+        margin-bottom: 16px;
+    }
+
+    .cabecalho h2 {
+        font-size: clamp(1rem, 5vw, 1.5rem);
+        text-align: center;
+    }
+
+    .cabecalho button {
+        flex: 0 0 auto;
+        padding: 8px 10px;
+    }
 }
