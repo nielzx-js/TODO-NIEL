@@ -1,35 +1,56 @@
-create table usuarios(
-  id SERIAL PRIMARY KEY,
-  nome varchar(200),
-  email varchar(200),
-  senha varchar(100)
-  
-)
 
-CREATE TABLE tarefas (
+CREATE TABLE IF NOT EXISTS usuarios (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(200),
+    email VARCHAR(200),
+    senha VARCHAR(100),
+    cargo VARCHAR(10) DEFAULT 'user'
+);
+
+CREATE TABLE IF NOT EXISTS tarefas (
     id SERIAL PRIMARY KEY,
     titulo VARCHAR(200),
     descricao VARCHAR(400),
-    usuario_id INTEGER REFERENCES usuarios(id) ON DELETE CASCADE
+    usuario_id INTEGER REFERENCES usuarios(id) ON DELETE CASCADE,
+    status VARCHAR(20) DEFAULT 'pendente',
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_limite DATE
 );
 
-ALTER TABLE tarefas
-ADD COLUMN cargo VARCHAR(10) DEFAULT 'user'
-CHECK (cargo IN ('admin', 'user'));
-
-ALTER TABLE tarefas
-ADD COLUMN status VARCHAR(20) DEFAULT 'pendente'
-CHECK (status IN ('pendente', 'concluidas', 'atrasado'));
-
-
-
-ALTER TABLE tarefas
-ADD COLUMN data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-ADD COLUMN data_limite DATE;
-
-ALTER TABLE tarefas
-DROP COLUMN cargo;
+-- Garantir as colunas caso as tabelas já existam
 
 ALTER TABLE usuarios
-ADD COLUMN cargo VARCHAR(10) DEFAULT 'user'
-CHECK (cargo IN ('admin', 'user')); 
+ADD COLUMN IF NOT EXISTS cargo VARCHAR(10) DEFAULT 'user';
+
+ALTER TABLE tarefas
+ADD COLUMN IF NOT EXISTS status VARCHAR(20) DEFAULT 'pendente',
+ADD COLUMN IF NOT EXISTS data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ADD COLUMN IF NOT EXISTS data_limite DATE;
+
+-- Remover cargo de tarefas, caso ainda exista
+
+ALTER TABLE tarefas
+DROP COLUMN IF EXISTS cargo;
+
+-- Garantir as restrições de cargo e status
+
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_constraint
+        WHERE conname = 'usuarios_cargo_check'
+    ) THEN
+        ALTER TABLE usuarios
+        ADD CONSTRAINT usuarios_cargo_check
+        CHECK (cargo IN ('admin', 'user'));
+    END IF;
+
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_constraint
+        WHERE conname = 'tarefas_status_check'
+    ) THEN
+        ALTER TABLE tarefas
+        ADD CONSTRAINT tarefas_status_check
+        CHECK (status IN ('pendente', 'concluidas', 'atrasado'));
+    END IF;
+END $$;
