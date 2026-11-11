@@ -235,6 +235,31 @@ app.get('/calendario',(req,res)=>{
     res.render("calendario")
 })
 
+app.get('/api/tarefas-calendario', async (req, res) => {
+
+    if (!req.session.usuario) {
+        return res.redirect('/');
+    }
+
+    const id = req.session.usuario.id;
+
+    const query = `
+        SELECT 
+            id,
+            titulo,
+            descricao,
+            TO_CHAR(data_limite, 'YYYY-MM-DD') AS data_limite,
+            status
+        FROM tarefas
+        WHERE usuario_id = $1
+        AND data_limite IS NOT NULL
+    `;
+
+    const result = await pool.query(query, [id]);
+
+    res.json(result.rows);
+});
+
 
 app.post('/logout', (req, res) => {
     req.session.destroy(() => {

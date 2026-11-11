@@ -9,10 +9,17 @@ let anoAtual = hoje.getFullYear();
 
 let diaSelecionado = hoje.getDate();
 
+let tarefas=[]
+async function buscarTarefas(){
+    const response=await fetch('/api/tarefas-calendario')
+    tarefas = await response.json()
+    gerarCalendario()
+}
+
+
+
 function gerarCalendario() {
-
-    dias.innerHTML = '';
-
+     dias.innerHTML = '';
     const primeiroDia = new Date(anoAtual, mesAtual, 1).getDay();
 
     const ultimoDia = new Date(anoAtual, mesAtual + 1, 0).getDate();
@@ -39,7 +46,23 @@ function gerarCalendario() {
         elemento.classList.add('dia');
 
         elemento.textContent = dia;
+        const dataAtual = `${anoAtual}-${String(mesAtual + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
 
+const tarefasDoDia = tarefas.filter(tarefa => {
+    return tarefa.data_limite === dataAtual;
+});
+
+tarefasDoDia.forEach(tarefa => {
+
+    const item = document.createElement('div');
+
+    item.classList.add('tarefa-calendario');
+
+    item.textContent = tarefa.titulo;
+
+    elemento.appendChild(item);
+
+}); 
         if (
             dia === hoje.getDate() &&
             mesAtual === hoje.getMonth() &&
@@ -97,5 +120,4 @@ document.getElementById('proximo').addEventListener('click', () => {
     gerarCalendario();
 
 });
-
-gerarCalendario();
+buscarTarefas();
