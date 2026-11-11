@@ -8,7 +8,7 @@
 
 ## Sobre o projeto
 
-TodoNiel é um gerenciador de tarefas inspirado no Todoist, com foco em organização pessoal, autenticação e acompanhamento de tarefas. A aplicação já conta com a base funcional de login, registro, hash de senha, sessão e gestão de tarefas em cartões; os recursos mais avançados do roadmap seguem planejados.
+TodoNiel é um gerenciador de tarefas inspirado no Todoist, com foco em organização pessoal, autenticação e acompanhamento de tarefas. A aplicação já conta com login, registro, hash de senha, sessão, gestão de tarefas em cartões e visualização de tarefas com data de entrega no calendário; os recursos mais avançados do roadmap seguem planejados.
 
 ## Status do desenvolvimento
 
@@ -19,7 +19,7 @@ TodoNiel é um gerenciador de tarefas inspirado no Todoist, com foco em organiza
 - [x] Cadastro de tarefas
 - [x] Visualização e edição de tarefas com layout responsivo
 - [x] Estilização visual seguindo a paleta do projeto
-- [ ] Tarefas no calendário
+- [x] Exibição no calendário das tarefas com data de entrega
 - [ ] Status de prazo: atrasado, perto do prazo e no prazo
 - [ ] Redefinição de senha com código numérico
 - [ ] Grupos: criar, entrar por código, calendário do grupo e membros
@@ -29,9 +29,9 @@ TodoNiel é um gerenciador de tarefas inspirado no Todoist, com foco em organiza
 
 ## Funcionalidades
 
-**Implementadas:** protótipo gráfico das telas em `docs/desigin/jpgs/`; autenticação com sessão; registro de usuários com confirmação de senha; hash de senhas com `bcrypt`; listagem de tarefas do usuário em cartões; cadastro de tarefas com título e descrição; edição e exclusão de tarefas; visual responsivo da aplicação; e estilos visuais alinhados à paleta definida do projeto (`#0F1220`, `#1A1F33`, `#6C5CE7`, `#00B8D9`, `#2ECC71`, `#F5A623`, `#E5484D`).
+**Implementadas:** protótipo gráfico das telas em `docs/desigin/jpgs/`; autenticação com sessão; registro de usuários com confirmação de senha; hash de senhas com `bcrypt`; listagem de tarefas do usuário em cartões; cadastro de tarefas com título, descrição e data de entrega; edição e exclusão de tarefas; calendário mensal com navegação e exibição das tarefas que têm data de entrega; visual responsivo da aplicação; e estilos visuais alinhados à paleta definida do projeto (`#0F1220`, `#1A1F33`, `#6C5CE7`, `#00B8D9`, `#2ECC71`, `#F5A623`, `#E5484D`).
 
-**Planejadas:** tarefas com calendário e datas de entrega, status de prazo por proximidade, grupos com código e calendário compartilhado, redefinição de senha com código numérico, lembretes por e-mail e feedback com estrelas.
+**Planejadas:** status de prazo por proximidade, grupos com código e calendário compartilhado, redefinição de senha com código numérico, lembretes por e-mail e feedback com estrelas.
 
 ## Protótipo (design)
 
@@ -229,12 +229,10 @@ sistema_TODOIST/
 
 ## Próximos passos
 
-1. Login e registro
-2. Tarefas com calendário
-3. Status de prazo
-4. Grupos
-5. E-mails de lembrete
-6. Feedback e redefinição de senha
+1. Status de prazo
+2. Grupos
+3. E-mails de lembrete
+4. Feedback e redefinição de senha
 
 ## Autor
 
