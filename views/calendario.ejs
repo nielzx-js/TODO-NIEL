@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendário</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/calendario.css">
+  
+</head>
+<body>
+    <div class="page-shell">
+        <%- include('partials/menu.ejs', { activeRoute: '/calendario' }) %>
+
+        <main class="main-content calendario-conteudo">
+            <div class="calendario">
+                <div class="cabecalho">
+                    <button id="anterior">❮</button>
+
+                    <h2 id="mesAno"></h2>
+
+                    <button id="proximo">❯</button>
+                </div>
+
+                <div class="dias-semana">
+                    <span>Dom</span>
+                    <span>Seg</span>
+                    <span>Ter</span>
+                    <span>Qua</span>
+                    <span>Qui</span>
+                    <span>Sex</span>
+                    <span>Sáb</span>
+                </div>
+
+                <div id="dias" class="dias"></div>
+            </div>
+        </main>
+
+    </div>
+
+    <script src="/js/calendario.js"></script>
+</body>
+</html>

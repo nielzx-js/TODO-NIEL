@@ -1,0 +1,84 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #0F1220;
+    color: #F4EDF3;
+    font-family: Arial, sans-serif;
+    padding: 0;
+}
+
+.calendario-conteudo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.calendario {
+    width: min(100%, 700px);
+    background: #1A1F33;
+    padding: 25px;
+    border-radius: 12px;
+}
+
+.cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.cabecalho button {
+    background: #2B3250;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.dias-semana,
+.dias {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
+
+.dias-semana span {
+    text-align: center;
+    color: #A8AFC5;
+    padding: 10px 0;
+}
+
+.dia {
+    min-height: 65px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #2B3250;
+}
+
+.dia:hover {
+    background: #514A75;
+}
+
+.dia.hoje {
+    background: #6C5CE7;
+    font-weight: bold;
+}
+
+.dia.selecionado {
+    outline: 2px solid #00B8D9;
+}
+
+.dia.vazio {
+    background: transparent;
+    cursor: default;
+}

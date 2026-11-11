@@ -228,6 +228,12 @@ app.post('/excluir/:id',async(req,res)=>{
     }
 })
 
+
+app.get('/calendario',(req,res)=>{
+    res.render("calendario")
+})
+
+
 app.post('/logout', (req, res) => {
     req.session.destroy(() => {
         res.redirect('/');
