@@ -176,6 +176,7 @@ app.get('/tarefas',async (req,res)=>{
        if (!req.session.usuario) {
         return res.redirect('/')
     }
+    
     const id = req.session.usuario.id
     const query= 'SELECT * FROM tarefas WHERE usuario_id = $1'
     const result = await pool.query(query,[id])
@@ -229,6 +230,56 @@ app.post('/excluir/:id',async(req,res)=>{
             `)
     }
 })
+//marcar como concluída
+app.post("/concluir/:id", async (req,res)=>{
+    try{
+    const id_tarefa=req.params.id;
+    const id_user = req.session.usuario.id
+
+    const query=`
+    UPDATE tarefas
+    SET status='concluidas'
+    WHERE usuario_id = $1
+    AND
+    id=$2
+    `
+    const result = await pool.query(query,[id_user,id_tarefa])
+       
+    if(result.rowCount>0){
+        res.redirect('/inicio')
+    }
+    }catch(error){
+        console.log("Erro:",error)
+    }
+
+
+})
+
+//desmarcar
+app.post("/desmarcar/:id", async (req,res)=>{
+    try{
+    const id_tarefa=req.params.id;
+    const id_user = req.session.usuario.id
+
+    const query=`
+    UPDATE tarefas
+    SET status='pendente'
+    WHERE usuario_id = $1
+    AND
+    id=$2
+    `
+    const result = await pool.query(query,[id_user,id_tarefa])
+       
+    if(result.rowCount>0){
+        res.redirect('/inicio')
+    }
+    }catch(error){
+        console.log("Erro:",error)
+    }
+
+
+})
+
 
 
 app.get('/calendario',(req,res)=>{

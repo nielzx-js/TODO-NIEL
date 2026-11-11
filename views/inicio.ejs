@@ -36,9 +36,16 @@
                             <p><%= tarefa.descricao %></p>
                             <p><%= tarefa.data_limite%></p>
                             <div class="task-card-actions">
-                                <a href="/edit/<%= tarefa.id %>" class="btn btn-primary">Editar</a>
+                                <form class="" method="POST" action="/concluir/<%=tarefa.id%>">
+                                <button class ="btn btn-primary">Concluído</button>
+                                </form>
+                                <a href="/edit/<%= tarefa.id %>" class="btn btn-secondary">Editar</a>
+
                                 <form method="POST" action="/excluir/<%= tarefa.id %>">
-                                    <button type="submit" class="btn btn-danger">Excluir</button>
+                                    <button type="submit" class="btn btn-primary">Excluir</button>
+                                </form>
+                                 <form class="" method="POST" action="/desmarcar/<%=tarefa.id%>">
+                                <button class ="btn btn-primary">Desmarcar </button>
                                 </form>
                             </div>
                         </article>
