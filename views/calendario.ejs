@@ -6,6 +6,10 @@
     <title>Calendário</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/calendario.css">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#6366f1">
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
   
 </head>
 <body>
@@ -40,5 +44,10 @@
 
     <script src="/js/calendario.js"></script>
     <%- include('partials/footer') %>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'));
+        }
+    </script>
 </body>
 </html>
