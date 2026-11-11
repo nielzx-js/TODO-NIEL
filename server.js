@@ -399,16 +399,39 @@ app.get("/verfeedback",async(req,res)=>{
     if(!req.session.usuario){
         res.redirect('/')
     }
-     const id=req.session.usuario.id
+    const id=req.session.usuario.id
     const query=`
         SELECT * FROM feedbacks
         WHERE usuario_id=$1
     `
+    const result=await pool.query(query,[id])
+
    
 
-    res.render('verfeedback')
+    res.render('verfeedback',{feedback:result.rows[0]})
 })
+app.post("/editarFeed/:id",async(req,res)=>{
+    const {titulo,descricao} = req.body;
+    const id = req.params.id;
+    const query=`
+    UPDATE feedbacks
+    SET
+    titulo=$1,
+    descricao=$2
+    WHERE id = $3
+    `
+    const result=await pool.query(query,[titulo,descricao,id])
+    if(result.rowCount>0){
+        res.send(`
+            <script>
+                      alert("Atualizado com sucesso!")
+            window.location.href='/feedback'
+            </script>
 
+  
+            `)
+    }
+})
 
 
 
