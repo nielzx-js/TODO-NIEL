@@ -1,16 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Insira o email</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/auth.css">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#6366f1">
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Recuperar senha</title>
 </head>
-<body>
-    <a href="/">Retornar para login</a>
-    <form method="POST" action="/2step/enviar">
-        <label for="email">Informe seu email:</label><br>
-        <input type="email"><br>
-        <button type="submit">Enviar</button>
+<body class="auth-page">
+    <form class="auth-form" method="POST" action="/2step/enviar">
+        <div class="titulo">
+            <h1>Recuperar senha</h1>
+            <p>Informe o email da sua conta para receber o código de verificação.</p>
+        </div>
+
+        <label for="email">Email</label>
+        <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="email@exemplo.com"
+            required
+            autofocus
+        >
+
+        <button type="submit">Enviar código</button>
+
+        <p class="login">
+            <a href="/">Retornar para login</a>
+        </p>
     </form>
+    <%- include('partials/footer') %>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'));
+        }
+    </script>
 </body>
 </html>

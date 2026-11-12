@@ -13,6 +13,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 require('dotenv').config()
 const PORT=process.env.PORT
+const { randomInt } = require('crypto');
+
+
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL,
+        pass: process.env.EMAIL_SENHA
+    }
+});
 app.use(session({
     secret: process.env.SESSION_SECRET || randomBytes(32).toString('hex'),
     resave: false,
@@ -468,17 +478,127 @@ app.post('/deletar/:id',async(req,res)=>{
 app.get('/2step',(req,res)=>{
     res.render('2step')
 })
-app.post('/2step',async (req,res)=>{
-
-
+app.post('/2step/enviar',async (req,res)=>{
+    const {email}=req.body
+    const query=`
+    SELECT * FROM usuarios WHERE email=$1 
+    `
+    const result=await pool.query(query,[email])
+    if(result.rowCount>0){
+         const codigo= randomInt(100000, 1000000).toString();
+        req.session.codigo={
+        valor: codigo,
+        email: email,
+        expiracao: Date.now() + 5 * 60 * 1000
+    }
+   await transporter.sendMail({
+        from:process.env.EMAIL,
+      to:email,
+       subject:"Código de verificação",
+       text:`seu código de verificação é: ${codigo}`
+  })
+    res.redirect('/2verify')
+    }
+    else{
+        res.send(`
+            <script>
+            alert("Email não encontrado")
+            window.location.href='/2step'
+            </script>
+            `)
+    }
+ })
+app.get('/password',(req,res)=>{
+    if (!req.session.podeAlterarSenha || !req.session.codigo) {
+        return res.redirect('/2step');
+    }
+    res.render("password")
 })
-
 app.get("/2verify",(req,res)=>{
    res.render('2verify') 
 })
+app.post('/enviar/2verify',async(req,res)=>{
+    const {codigo}=req.body
+    const verificacao = req.session.codigo
+    if(!verificacao){
+        return res.send(`
+            <script>
+            alert("Solicite um novo código")
+            window.location.href='/2step'
+            </script>
+            `)
+    }
+      if (Date.now() > verificacao.expiracao) {
+        delete req.session.codigo;
+        return res.send(`
+              <script>
+            alert("Código expirado, solicite um novo código")
+            window.location.href='/2step'
+            </script>
+            `)
+    }
+      if (codigo !== verificacao.valor) {
+            return res.send(`
+              <script>
+            alert("Código incorreto")
+            window.location.href='/2verify'
+            </script>
+            `)
+    }
+    if(codigo===verificacao.valor){
+        req.session.podeAlterarSenha = true;
+        return res.redirect('/password')
+    }
+})
 
+app.post('/senha', async (req, res) => {
+    try {
+        const { senha1, senha2 } = req.body;
+        if (!req.session.podeAlterarSenha || !req.session.codigo) {
+            return res.redirect('/2step');
+        }
+        if (senha1.length < 5) {
+            return res.send(`
+                <script>
+                alert("insira uma senha de pelo menos 5 digitos")
+                window.location.href='/password'
+                </script>
+            `);
+        }
+        if (senha1 !== senha2) {
+            return res.send(`
+                <script>
+                alert("As senhas não são iguais!")
+                window.location.href='/password'
+                </script>
+            `);
+        }
+        const email = req.session.codigo.email;
 
+        const senhaHash = await bcrypt.hash(senha1, 10);
 
+        const query = `
+            UPDATE usuarios
+            SET senha = $1
+            WHERE email = $2
+        `;
+
+        await pool.query(query, [senhaHash, email]);
+        delete req.session.codigo;
+        delete req.session.podeAlterarSenha;
+
+        res.redirect('/');
+
+    } catch (error) {
+        console.error(error);
+        res.send(`
+            <script>
+            alert("Erro ao atualizar senha")
+            window.location.href='/password'
+            </script>
+            `);
+    }
+});
 app.post('/logout', (req, res) => {
     req.session.destroy(() => {
         res.redirect('/');
