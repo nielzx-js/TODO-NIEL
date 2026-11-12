@@ -84,7 +84,14 @@ app.post('/register', async (req, res) => {
             </script>
             `)
     }
-
+    if(senha.length<5){
+        return res.send(`
+            <script>
+            alert("insira uma senha de pelo menos 5 digitos")
+            window.location.href='register'
+            </script>
+            `)
+    }
     const query1=`
     SELECT * FROM usuarios 
     WHERE email=$1
@@ -455,6 +462,11 @@ app.post('/deletar/:id',async(req,res)=>{
             `)
     }
 })
+
+
+//VERIFICAÇÃO DE DUAS ETAPAS REGISTRO
+
+
 
 
 app.post('/logout', (req, res) => {
