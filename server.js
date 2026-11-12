@@ -465,7 +465,17 @@ app.post('/deletar/:id',async(req,res)=>{
 
 
 //VERIFICAÇÃO DE DUAS ETAPAS REGISTRO
+app.get('/2step',(req,res)=>{
+    res.render('2step')
+})
+app.post('/2step',async (req,res)=>{
 
+
+})
+
+app.get("/2verify",(req,res)=>{
+   res.render('2verify') 
+})
 
 
 
