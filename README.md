@@ -24,7 +24,7 @@ TodoNiel é um gerenciador de tarefas inspirado no Todoist, com foco em organiza
 - [ ] Redefinição de senha com código numérico
 - [ ] Grupos: criar, entrar por código, calendário do grupo e membros
 - [ ] E-mails de lembrete de 4 a 1 dia antes do prazo
-- [ ] Feedback com estrelas
+- [x] Feedback com estrelas
 - [x] Hash de senhas com bcrypt
 
 ## Funcionalidades
