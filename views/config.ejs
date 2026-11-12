@@ -7,10 +7,28 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    
-
-    <%-include('partials/menu.ejs')%>
-
-    <%-include('partials/footer.ejs')%>
+    <div class="page-shell">
+        <%- include('partials/menu.ejs', { activeRoute: '/config' }) %>
+        <main class="main-content">
+            <h3>Configurações</h3>
+            <p><i>Aqui você consegue ver e editar suas informações</i></p>
+            <br>
+            <br>
+            <br>
+            <form method="POST" action="/config">
+           
+           <label for="nome">Seu nome:</label>
+            <input 
+            type="text" 
+            id="nome"
+            name="nome"
+            value="<%= usuario.nome %>">
+            <button type="submit">Salvar</button>
+            </form>
+            
+        </main>
+  
+    </div>
+    <%- include('partials/footer.ejs') %>
 </body>
 </html>

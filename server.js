@@ -349,8 +349,30 @@ app.get('/config',async(req,res)=>{
     if(!req.session.usuario){
         res.redirect('/')
     }
-    res.render("config")
+    const id=req.session.usuario.id
+    const query=`SELECT * FROM usuarios where id =$1`
+    const result=await pool.query(query,[id])
+    res.render("config",{usuario:result.rows[0]})
 })
+app.post('/config',async(req,res)=>{
+    const {nome} = req.body;
+    const id=req.session.usuario.id
+    const query=`
+    UPDATE usuarios 
+    SET nome=$1 WHERE id = $2
+    `
+    const result=await pool.query(query,[nome,id])
+    if(result.rowCount>0){
+        return res.send(`
+            <script>
+            alert("Usuário atualizado!")
+            window.location.href='/config'
+            </script>
+            `)
+    }
+})
+
+
 app.get('/feedback',async(req,res)=>{
     if(!req.session.usuario){
         res.redirect('/')
@@ -599,6 +621,10 @@ app.post('/senha', async (req, res) => {
             `);
     }
 });
+
+
+
+
 app.post('/logout', (req, res) => {
     req.session.destroy(() => {
         res.redirect('/');
