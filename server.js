@@ -215,7 +215,9 @@ app.get('/tarefas',async (req,res)=>{
 })
 app.get('/edit/:id',async (req,res)=>{
     const id = req.params.id
-    const query='SELECT * FROM tarefas WHERE id = $1 AND usuario_id = $2 '
+    const query=`SELECT *, TO_CHAR(data_limite, 'YYYY-MM-DD') AS data_limite_formatada
+                 FROM tarefas
+                 WHERE id = $1 AND usuario_id = $2`
     const result = await pool.query(query,[id, req.session.usuario.id]);
       if (result.rowCount === 0) {
         return res.redirect('/tarefas');
@@ -227,14 +229,15 @@ app.get('/edit/:id',async (req,res)=>{
 
 //EDIÇÃO E EXCLUSÃO DE TAREFAS
 app.post("/editar/:id", async(req,res)=>{
-    const {titulo,descricao} = req.body
+    const {titulo,descricao,data_limite} = req.body
     const id=req.params.id
+    const data = data_limite || null
     const query= `
     UPDATE tarefas
-    SET titulo = $1, descricao = $2
-    WHERE id = $3 AND usuario_id = $4
+    SET titulo = $1, descricao = $2, data_limite = $3
+    WHERE id = $4 AND usuario_id = $5
     `
-    const result = await pool.query(query,[titulo,descricao,id,req.session.usuario.id])
+    const result = await pool.query(query,[titulo,descricao,data,id,req.session.usuario.id])
     if(result.rowCount>0){
         res.send(`
             <script>

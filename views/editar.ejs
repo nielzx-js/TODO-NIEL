@@ -29,6 +29,9 @@
                         <textarea id="descricao" name="descricao" required><%= tarefa.descricao %></textarea>
                     </div>
 
+                    <label for="data_limite">Data de entrega:</label>
+                    <input type="date" name="data_limite" id="data_limite" value="<%= tarefa.data_limite_formatada || '' %>">
+
                     <div class="form-actions">
                         <button type="submit" class="btn btn-primary">Salvar</button>
                     </div>
