@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grupos</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="page-shell">
+        <%- include('partials/menu.ejs', { activeRoute: '/grupos' }) %>
+
+        <main class="main-content">
+            <div class="content-panel">
+                <div class="groups-toolbar">
+                    <button type="button" class="btn btn-primary">Criar grupo</button>
+
+                    <label class="groups-search">
+                        <svg class="groups-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <circle cx="11" cy="11" r="7"></circle>
+                            <path d="m20 20-4-4"></path>
+                        </svg>
+                        <input type="text" name="codigo_grupo" placeholder="Código do grupo" aria-label="Código do grupo">
+                    </label>
+                </div>
+
+                <h1 class="section-title">Grupos</h1>
+
+                <div class="task-grid">
+                    <% if (grupos.length === 0) { %>
+                        <div class="task-card empty-card">
+                            <p>Você ainda não participa de grupos.</p>
+                        </div>
+                    <% } %>
+
+                    <% grupos.forEach(grupo => { %>
+                        <div class="task-card">
+                            <div class="task-card-header">
+                                <h3><%= grupo.nome %></h3>
+                            </div>
+                            <div class="task-card-actions">
+                                <button type="button" class="btn btn-secondary">Ver grupo</button>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <%- include('partials/footer.ejs') %>
+</body>
+</html>

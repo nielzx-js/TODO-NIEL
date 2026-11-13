@@ -623,7 +623,7 @@ app.post('/senha', async (req, res) => {
 });
 
 app.get('/grupos',async(req,res)=>{
-    
+    res.render('grupos', { grupos: [] })
 })
 
 
