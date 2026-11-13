@@ -623,7 +623,19 @@ app.post('/senha', async (req, res) => {
 });
 
 app.get('/grupos',async(req,res)=>{
-    res.render('grupos', { grupos: [] })
+       if (!req.session.usuario) {
+        return res.redirect('/');
+    }
+    const id = req.session.usuario.id
+    const query=`
+        SELECT grupos.*
+        FROM grupos
+        INNER JOIN grupo_membros
+        ON grupos.id = grupo_membros.grupo_id
+        WHERE grupo_membros.usuario_id = $1 
+    `
+    const result=await pool.query(query,[id])
+    res.render('grupos', { grupos: result.rows })
 })
 
 
