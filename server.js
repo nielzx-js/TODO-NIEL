@@ -313,7 +313,7 @@ app.post("/desmarcar/:id", async (req,res)=>{
 
 app.get('/calendario',(req,res)=>{
     if(!req.session.usuario){
-        res.redirect('/')
+        return res.redirect('/')
     }
     res.render("calendario")
 })
@@ -347,7 +347,7 @@ app.get('/api/tarefas-calendario', async (req, res) => {
 //configuração e feedback
 app.get('/config',async(req,res)=>{
     if(!req.session.usuario){
-        res.redirect('/')
+        return res.redirect('/')
     }
     const id=req.session.usuario.id
     const query=`SELECT * FROM usuarios where id =$1`
@@ -436,7 +436,7 @@ if(result.rowCount>0){
 })
 app.get("/verfeedback",async(req,res)=>{
     if(!req.session.usuario){
-        res.redirect('/')
+        return res.redirect('/')
     }
     const id=req.session.usuario.id
     const query=`
@@ -622,7 +622,9 @@ app.post('/senha', async (req, res) => {
     }
 });
 
-
+app.get('/grupos',async(req,res)=>{
+    
+})
 
 
 app.post('/logout', (req, res) => {
