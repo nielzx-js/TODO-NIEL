@@ -119,3 +119,55 @@ CREATE TABLE IF NOT EXISTS feedbacks (
     descricao VARCHAR(1000) NOT NULL,
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- =====================================
+-- TABELA DE GRUPOS
+-- =====================================
+
+CREATE TABLE IF NOT EXISTS grupos (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    descricao VARCHAR(500),
+    lider_id INTEGER NOT NULL REFERENCES usuarios(id)
+        ON DELETE CASCADE,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+-- =====================================
+-- MEMBROS DOS GRUPOS
+-- =====================================
+
+CREATE TABLE IF NOT EXISTS grupo_membros (
+    id SERIAL PRIMARY KEY,
+    grupo_id INTEGER NOT NULL REFERENCES grupos(id)
+        ON DELETE CASCADE,
+    usuario_id INTEGER NOT NULL REFERENCES usuarios(id)
+        ON DELETE CASCADE,
+    data_entrada TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    UNIQUE (grupo_id, usuario_id)
+);
+
+
+-- =====================================
+-- ADICIONAR GRUPO ÀS TAREFAS
+-- =====================================
+
+ALTER TABLE tarefas
+ADD COLUMN IF NOT EXISTS grupo_id INTEGER
+REFERENCES grupos(id) ON DELETE CASCADE;
+
+
+-- =====================================
+-- ÍNDICES PARA CONSULTAS
+-- =====================================
+
+CREATE INDEX IF NOT EXISTS idx_grupo_membros_usuario
+ON grupo_membros(usuario_id);
+
+CREATE INDEX IF NOT EXISTS idx_grupo_membros_grupo
+ON grupo_membros(grupo_id);
+
+CREATE INDEX IF NOT EXISTS idx_tarefas_grupo
+ON tarefas(grupo_id);
