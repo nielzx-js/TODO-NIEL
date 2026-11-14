@@ -630,14 +630,17 @@ app.get('/grupos',async(req,res)=>{
         return res.redirect('/');
     }
     const id = req.session.usuario.id
-    const query=`
-        SELECT grupos.*
-        FROM grupos
-        INNER JOIN grupo_membros
-        ON grupos.id = grupo_membros.grupo_id
-        WHERE grupo_membros.usuario_id = $1 
-    `
+    
+ const query = `
+    SELECT DISTINCT grupos.*
+    FROM grupos
+    INNER JOIN grupo_membros
+    ON grupos.id = grupo_membros.grupo_id
+    WHERE grupo_membros.usuario_id = $1
+    ORDER BY grupos.nome ASC
+`;
     const result=await pool.query(query,[id])
+
     res.render('grupos', { grupos: result.rows })
 })
 
