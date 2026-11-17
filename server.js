@@ -622,7 +622,7 @@ app.post('/senha', async (req, res) => {
             window.location.href='/password'
             </script>
             `);
-    }
+    }   
 });
 
 app.get('/grupos',async(req,res)=>{
