@@ -518,9 +518,9 @@ app.post('/2step/enviar',async (req,res)=>{
     }
    await transporter.sendMail({
         from:process.env.EMAIL,
-      to:email,
-       subject:"Código de verificação",
-       text:`seu código de verificação é: ${codigo}`
+        to:email,
+        subject:"Código de verificação",
+        text:`seu código de verificação é: ${codigo}`
   })
     res.redirect('/2verify')
     }
