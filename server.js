@@ -14,7 +14,7 @@ app.use(express.json());
 require('dotenv').config()
 const PORT=process.env.PORT
 const { randomInt } = require('crypto');
-
+const crypto = require('crypto')
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -561,9 +561,9 @@ app.post('/2step/enviar',async (req,res)=>{
     }
    await transporter.sendMail({
         from:process.env.EMAIL,
-      to:email,
-       subject:"Código de verificação",
-       text:`seu código de verificação é: ${codigo}`
+        to:email,
+        subject:"Código de verificação",
+        text:`seu código de verificação é: ${codigo}`
   })
     res.redirect('/2verify')
     }
@@ -950,6 +950,21 @@ app.get('/api/grupos/:grupoId/tarefas-calendario', async (req, res) => {
     `, [grupo.id]);
     return res.json(result.rows);
 });
+
+app.get("/vergrupo/:id",async(req,res)=>{
+    const id=req.params.id
+    const query=`
+    SELECT usuarios.id, usuarios.nome, usuarios.email, grupo_membros.data_entrada
+    FROM usuarios
+    INNER JOIN grupo_membros
+    ON usuarios.id = grupo_membros.usuario_id
+    WHERE grupo_membros.grupo_id = $1
+    ORDER BY usuarios.nome ASC;
+    `
+    const result = await pool.query(query,[id])
+    res.render('vergrupo',{grupos:result.rows})
+})
+
 
 
 app.post('/logout', (req, res) => {

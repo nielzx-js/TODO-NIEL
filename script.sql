@@ -171,3 +171,5 @@ ON grupo_membros(grupo_id);
 
 CREATE INDEX IF NOT EXISTS idx_tarefas_grupo
 ON tarefas(grupo_id);
+ALTER TABLE grupos
+ADD COLUMN IF NOT EXISTS codigo_acesso VARCHAR(10) UNIQUE;
