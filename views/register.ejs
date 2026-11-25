@@ -19,6 +19,14 @@
             <p>Preencha os dados para começar.</p>
         </div>
 
+        <% if (erro === 'dados') { %>
+            <p class="form-message" role="alert">Confira os dados e use uma senha com pelo menos 5 caracteres.</p>
+        <% } else if (erro === 'email') { %>
+            <p class="form-message" role="alert">Já existe uma conta cadastrada com esse email.</p>
+        <% } else if (erro === 'codigo') { %>
+            <p class="form-message" role="alert">Foram feitas muitas tentativas. Solicite um novo código.</p>
+        <% } %>
+
         <label for="nome">Nome completo</label>
         <input
             type="text"
@@ -36,7 +44,6 @@
             name="email"
             placeholder="seuemail@exemplo.com"
             required
-            autofocus
         >
 
         <label for="senha">Senha</label>
@@ -46,7 +53,6 @@
             name="senha"
             placeholder="Crie uma senha"
             required
-            autofocus
         >
 
         <label for="confirmarSenha">Confirmar senha</label>
@@ -56,7 +62,6 @@
             name="confirmarSenha"
             placeholder="Repita sua senha"
             required
-            autofocus
         >
 
         <button type="submit">Criar minha conta</button>

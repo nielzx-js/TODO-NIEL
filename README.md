@@ -14,7 +14,7 @@ TodoNiel é um gerenciador de tarefas inspirado no Todoist, com foco em organiza
 
 - [x] Design gráfico das telas (protótipo)
 - [x] Login com sessão
-- [x] Registro funcional com validação de senha
+- [x] Registro com validação de senha e código de verificação por e-mail
 - [x] Exibição das tarefas do usuário em cartões com título, descrição e status
 - [x] Cadastro de tarefas
 - [x] Visualização e edição de tarefas com layout responsivo
@@ -22,16 +22,19 @@ TodoNiel é um gerenciador de tarefas inspirado no Todoist, com foco em organiza
 - [x] Exibição no calendário das tarefas com data de entrega
 - [x] Status de prazo: atrasado, perto do prazo e no prazo
 - [x] Redefinição de senha com código numérico
-- [ ] Grupos: criar, entrar por código, calendário do grupo e membros
+- [x] Grupos: criar, entrar por código, visualizar membros e calendário compartilhado
+- [x] Tarefas compartilhadas com edição/exclusão para membros e remoção de membros pelo administrador
 - [ ] E-mails de lembrete de 4 a 1 dia antes do prazo
 - [x] Feedback com estrelas
 - [x] Hash de senhas com bcrypt
 
 ## Funcionalidades
 
-**Implementadas:** protótipo gráfico das telas em `docs/desigin/jpgs/`; autenticação com sessão; registro de usuários com confirmação de senha; hash de senhas com `bcrypt`; listagem de tarefas do usuário em cartões; cadastro de tarefas com título, descrição e data de entrega; edição e exclusão de tarefas; calendário mensal com navegação e exibição das tarefas que têm data de entrega; visual responsivo da aplicação; e estilos visuais alinhados à paleta definida do projeto (`#0F1220`, `#1A1F33`, `#6C5CE7`, `#00B8D9`, `#2ECC71`, `#F5A623`, `#E5484D`).
+**Implementadas:** protótipo gráfico das telas em `docs/desigin/jpgs/`; autenticação com sessão; registro de usuários com confirmação de senha e código de verificação por e-mail; hash de senhas com `bcrypt`; listagem de tarefas do usuário em cartões; cadastro de tarefas com título, descrição e data de entrega; edição e exclusão de tarefas; calendário mensal pessoal e por grupo; grupos com código de convite, tarefas compartilhadas, membros e remoção de membros pelo administrador; visual responsivo da aplicação; e estilos visuais alinhados à paleta definida do projeto (`#0F1220`, `#1A1F33`, `#6C5CE7`, `#00B8D9`, `#2ECC71`, `#F5A623`, `#E5484D`).
 
-**Planejadas:** status de prazo por proximidade, grupos com código e calendário compartilhado, redefinição de senha com código numérico, lembretes por e-mail e feedback com estrelas.
+**Planejadas:** lembretes por e-mail.
+
+Para atualizar um banco já criado, execute `script.sql` (se ainda não foi executado) e depois `scrtip2.sql` para adicionar os códigos de convite aos grupos.
 
 ## Protótipo (design)
 
@@ -174,7 +177,7 @@ A aplicação já possui `package.json` com scripts de execução e a estrutura 
 1. Clonar o repositório.
 2. Instalar as dependências com `npm install`.
 3. Criar um arquivo `.env` com as variáveis necessárias, conforme o exemplo em `.env.exemple` (ajustar o nome do arquivo para `.env` se for necessário).
-4. Criar o banco PostgreSQL e executar o script `script.sql` para criar as tabelas `usuarios` e `tarefas`.
+4. Criar o banco PostgreSQL e executar `script.sql` e, em seguida, `scrtip2.sql` para preparar as tabelas e os códigos de convite dos grupos.
 5. Iniciar o servidor com `npm start` ou `npm run dev`.
 
 Exemplo mínimo de `.env`:
@@ -183,6 +186,8 @@ Exemplo mínimo de `.env`:
 PORT=3000
 DATABASE_URL=******localhost:5432/nome_do_banco
 SESSION_SECRET=sua_chave_secreta
+EMAIL=seuemail@gmail.com
+EMAIL_SENHA=sua_senha_de_app
 ```
 
 ## Estrutura de pastas

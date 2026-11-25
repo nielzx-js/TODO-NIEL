@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/auth.css">
+    <title>Verificar cadastro</title>
+</head>
+<body class="auth-page">
+    <form class="auth-form" method="POST" action="/register/verificar">
+        <div class="titulo">
+            <h1>Verifique seu email</h1>
+            <p>Enviamos um código para <strong><%= email %></strong>. Ele é válido por 10 minutos.</p>
+        </div>
+
+        <% if (erro) { %>
+            <p class="form-message" role="alert">Código incorreto. Confira o email e tente novamente.</p>
+        <% } %>
+
+        <label for="codigo">Código de verificação</label>
+        <input
+            type="text"
+            id="codigo"
+            name="codigo"
+            inputmode="numeric"
+            pattern="[0-9]{6}"
+            maxlength="6"
+            autocomplete="one-time-code"
+            required
+            autofocus
+        >
+
+        <button type="submit">Verificar e criar conta</button>
+        <p class="login"><a href="/register">Voltar ao cadastro</a></p>
+    </form>
+    <%- include('partials/footer') %>
+</body>
+</html>

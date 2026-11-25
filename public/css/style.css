@@ -441,6 +441,115 @@ textarea {
   margin: 0;
 }
 
+.groups-forms {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
+}
+
+.groups-form {
+  width: 100%;
+}
+
+.groups-form h2,
+.group-section h2 {
+  margin: 0 0 var(--space-4);
+  font-size: 16px;
+}
+
+.groups-form > .btn {
+  width: 100%;
+}
+
+.form-message {
+  margin: 0 0 var(--space-4);
+  color: var(--color-accent);
+}
+
+.group-back-link {
+  display: inline-block;
+  margin-bottom: var(--space-4);
+  color: var(--color-muted);
+  font-size: 13px;
+}
+
+.group-back-link:hover {
+  color: var(--color-accent);
+}
+
+.group-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+
+.group-heading .section-title {
+  margin-bottom: var(--space-2);
+}
+
+.group-heading p {
+  margin: 0 0 var(--space-2);
+  color: var(--color-muted);
+}
+
+.group-heading code,
+.task-card code {
+  padding: var(--space-1) var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-small);
+  background: var(--color-input);
+  color: var(--color-text);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+}
+
+.group-section {
+  margin-top: var(--space-8);
+}
+
+.group-members {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+}
+
+.group-member {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.group-member:last-child {
+  border-bottom: 0;
+}
+
+.group-member form {
+  margin: 0;
+}
+
+.group-member .task-status {
+  margin-left: var(--space-2);
+}
+
+.group-task-form {
+  max-width: none;
+  margin: 0;
+}
+
+.calendar-page {
+  width: min(100%, 900px);
+}
+
+.calendar-page .calendario {
+  width: 100%;
+}
+
 @media (max-width: 900px) {
   .main-content {
     padding: var(--space-6);
@@ -517,6 +626,14 @@ textarea {
 
   .task-form {
     padding: var(--space-4);
+  }
+
+  .group-heading {
+    flex-direction: column;
+  }
+
+  .group-member {
+    padding: var(--space-3);
   }
 
 }

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= grupo.nome %> | Grupo</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="page-shell">
+        <%- include('partials/menu.ejs', { activeRoute: '/grupos' }) %>
+
+        <main class="main-content">
+            <div class="content-panel">
+                <a class="group-back-link" href="/grupos">← Voltar para grupos</a>
+                <div class="group-heading">
+                    <div>
+                        <h1 class="section-title"><%= grupo.nome %></h1>
+                        <p><%= grupo.descricao || 'Sem descrição.' %></p>
+                        <p><strong>Código para convidar:</strong> <code><%= grupo.codigo %></code></p>
+                    </div>
+                    <a class="btn btn-secondary" href="/grupos/<%= grupo.id %>/calendario">Calendário do grupo</a>
+                </div>
+
+                <section class="group-section">
+                    <h2>Membros</h2>
+                    <div class="group-members">
+                        <% membros.forEach(membro => { %>
+                            <div class="group-member">
+                                <span>
+                                    <%= membro.nome %>
+                                    <% if (membro.usuario_id === grupo.lider_id) { %>
+                                        <span class="task-status">Administrador</span>
+                                    <% } %>
+                                </span>
+                                <% if (isAdmin && membro.usuario_id !== grupo.lider_id) { %>
+                                    <form method="POST" action="/grupos/<%= grupo.id %>/membros/<%= membro.usuario_id %>/remover">
+                                        <button class="btn btn-danger" type="submit">Remover</button>
+                                    </form>
+                                <% } %>
+                            </div>
+                        <% }) %>
+                    </div>
+                </section>
+
+                <section class="group-section">
+                    <h2>Adicionar tarefa</h2>
+                    <form class="task-form group-task-form" method="POST" action="/grupos/<%= grupo.id %>/tarefas">
+                        <div class="form-field">
+                            <label for="titulo">Título</label>
+                            <input type="text" id="titulo" name="titulo" maxlength="200" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="descricao">Descrição</label>
+                            <textarea id="descricao" name="descricao" maxlength="400"></textarea>
+                        </div>
+                        <div class="form-field">
+                            <label for="data_limite">Data de entrega</label>
+                            <input type="date" id="data_limite" name="data_limite">
+                        </div>
+                        <button class="btn btn-primary" type="submit">Adicionar tarefa</button>
+                    </form>
+                </section>
+
+                <section class="group-section">
+                    <h2>Tarefas do grupo</h2>
+                    <div class="task-grid">
+                        <% if (tarefas.length === 0) { %>
+                            <div class="task-card empty-card">
+                                <p>Ainda não há tarefas neste grupo.</p>
+                            </div>
+                        <% } %>
+                        <% tarefas.forEach(tarefa => { %>
+                            <article class="task-card">
+                                <div>
+                                    <div class="task-card-header">
+                                        <h3><%= tarefa.titulo %></h3>
+                                        <span class="task-status <%= tarefa.status %>"><%= tarefa.status %></span>
+                                    </div>
+                                    <p><%= tarefa.descricao || 'Sem descrição.' %></p>
+                                    <p>
+                                        <strong>Responsável:</strong> <%= tarefa.nome_criador %>
+                                        <% if (tarefa.data_limite_formatada) { %>
+                                            · <strong>Entrega:</strong> <%= tarefa.data_limite_formatada %>
+                                        <% } %>
+                                    </p>
+                                </div>
+                                <div class="task-card-actions">
+                                    <a class="btn btn-secondary" href="/grupos/<%= grupo.id %>/tarefas/<%= tarefa.id %>/editar">Editar</a>
+                                    <form method="POST" action="/grupos/<%= grupo.id %>/tarefas/<%= tarefa.id %>/excluir">
+                                        <button class="btn btn-danger" type="submit">Excluir</button>
+                                    </form>
+                                </div>
+                            </article>
+                        <% }) %>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+    <%- include('partials/footer.ejs') %>
+</body>
+</html>

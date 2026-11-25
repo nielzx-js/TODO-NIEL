@@ -12,20 +12,41 @@
 
         <main class="main-content">
             <div class="content-panel">
-                <div class="groups-toolbar">
-                    <button type="button" class="btn btn-primary">Criar grupo</button>
-
-                    <label class="groups-search">
-                        <svg class="groups-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <circle cx="11" cy="11" r="7"></circle>
-                            <path d="m20 20-4-4"></path>
-                        </svg>
-                        <input type="text" name="codigo_grupo" placeholder="Código do grupo" aria-label="Código do grupo">
-                    </label>
-                </div>
-
                 <h1 class="section-title">Grupos</h1>
 
+                <% if (mensagem === 'entrou') { %>
+                    <p class="form-message">Você entrou no grupo.</p>
+                <% } else if (mensagem === 'ja-membro') { %>
+                    <p class="form-message">Você já participa desse grupo.</p>
+                <% } else if (mensagem === 'codigo-invalido') { %>
+                    <p class="form-message">Código de grupo inválido.</p>
+                <% } %>
+
+                <div class="groups-forms">
+                    <form class="task-form groups-form" action="/grupos/criar" method="POST">
+                        <h2>Criar grupo</h2>
+                        <div class="form-field">
+                            <label for="nome-grupo">Nome</label>
+                            <input type="text" id="nome-grupo" name="nome" maxlength="100" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="descricao-grupo">Descrição</label>
+                            <textarea id="descricao-grupo" name="descricao" maxlength="500"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Criar grupo</button>
+                    </form>
+
+                    <form class="task-form groups-form" action="/grupos/entrar" method="POST">
+                        <h2>Entrar em um grupo</h2>
+                        <div class="form-field">
+                            <label for="codigo-grupo">Código do grupo</label>
+                            <input type="text" id="codigo-grupo" name="codigo_grupo" maxlength="12" required>
+                        </div>
+                        <button type="submit" class="btn btn-secondary">Entrar</button>
+                    </form>
+                </div>
+
+                <h2 class="section-title">Seus grupos</h2>
                 <div class="task-grid">
                     <% if (grupos.length === 0) { %>
                         <div class="task-card empty-card">
@@ -34,20 +55,27 @@
                     <% } %>
 
                     <% grupos.forEach(grupo => { %>
-                        <div class="task-card">
-                            <div class="task-card-header">
-                                <h3><%= grupo.nome %></h3>
+                        <article class="task-card">
+                            <div>
+                                <div class="task-card-header">
+                                    <h3><%= grupo.nome %></h3>
+                                    <% if (grupo.lider_id === usuarioId) { %>
+                                        <span class="task-status">Administrador</span>
+                                    <% } %>
+                                </div>
+                                <p><%= grupo.descricao || 'Sem descrição.' %></p>
+                                <p><strong>Código:</strong> <code><%= grupo.codigo %></code></p>
+                                <p><strong>Membros:</strong> <%= grupo.total_membros %></p>
                             </div>
                             <div class="task-card-actions">
-                                <button type="button" class="btn btn-secondary">Ver grupo</button>
+                                <a class="btn btn-secondary" href="/grupos/<%= grupo.id %>">Visualizar grupo</a>
                             </div>
-                        </div>
+                        </article>
                     <% }) %>
                 </div>
             </div>
         </main>
     </div>
-
     <%- include('partials/footer.ejs') %>
 </body>
 </html>

@@ -12,11 +12,14 @@
 </head>
 <body>
     <div class="page-shell">
-        <%- include('partials/menu.ejs', { activeRoute: '/tarefas' }) %>
+        <%- include('partials/menu.ejs', { activeRoute: typeof grupoId !== 'undefined' ? '/grupos' : '/tarefas' }) %>
 
         <main class="main-content">
             <div class="content-panel">
-                <form class="task-form" action="/editar/<%= tarefa.id %>" method="POST">
+                <% if (typeof grupoId !== 'undefined') { %>
+                    <a class="group-back-link" href="/grupos/<%= grupoId %>">← Voltar ao grupo</a>
+                <% } %>
+                <form class="task-form" action="<%= typeof grupoId !== 'undefined' ? '/grupos/' + grupoId + '/tarefas/' + tarefa.id + '/editar' : '/editar/' + tarefa.id %>" method="POST">
                     <h1>Editar tarefa</h1>
 
                     <div class="form-field">

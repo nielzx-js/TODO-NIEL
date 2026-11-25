@@ -11,7 +11,14 @@ let diaSelecionado = hoje.getDate();
 
 let tarefas=[]
 async function buscarTarefas(){
-    const response=await fetch('/api/tarefas-calendario')
+    const grupoId = document.querySelector('.calendario').dataset.groupId;
+    const url = grupoId
+        ? `/api/grupos/${grupoId}/tarefas-calendario`
+        : '/api/tarefas-calendario';
+    const response=await fetch(url)
+    if (!response.ok) {
+        throw new Error('Não foi possível carregar as tarefas do calendário.');
+    }
     tarefas = await response.json()
     gerarCalendario()
 }

@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendário</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/calendario.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/calendario.css">
     <link rel="manifest" href="/manifest.webmanifest">
     <meta name="theme-color" content="#6366f1">
     <link rel="apple-touch-icon" href="/icons/icon-192.png">
@@ -17,26 +17,34 @@
         <%- include('partials/menu.ejs', { activeRoute: '/calendario' }) %>
 
         <main class="main-content calendario-conteudo">
-            <div class="calendario">
-                <div class="cabecalho">
-                    <button id="anterior">❮</button>
+            <div class="calendar-page">
+                <% if (grupo) { %>
+                    <div class="groups-toolbar">
+                        <h1 class="section-title">Calendário: <%= grupo.nome %></h1>
+                        <a class="btn btn-secondary" href="/grupos/<%= grupo.id %>">Voltar ao grupo</a>
+                    </div>
+                <% } %>
+                <div class="calendario" data-group-id="<%= grupo ? grupo.id : '' %>">
+                    <div class="cabecalho">
+                        <button id="anterior">❮</button>
 
-                    <h2 id="mesAno"></h2>
+                        <h2 id="mesAno"></h2>
 
-                    <button id="proximo">❯</button>
+                        <button id="proximo">❯</button>
+                    </div>
+
+                    <div class="dias-semana">
+                        <span>Dom</span>
+                        <span>Seg</span>
+                        <span>Ter</span>
+                        <span>Qua</span>
+                        <span>Qui</span>
+                        <span>Sex</span>
+                        <span>Sáb</span>
+                    </div>
+
+                    <div id="dias" class="dias"></div>
                 </div>
-
-                <div class="dias-semana">
-                    <span>Dom</span>
-                    <span>Seg</span>
-                    <span>Ter</span>
-                    <span>Qua</span>
-                    <span>Qui</span>
-                    <span>Sex</span>
-                    <span>Sáb</span>
-                </div>
-
-                <div id="dias" class="dias"></div>
             </div>
         </main>
 
